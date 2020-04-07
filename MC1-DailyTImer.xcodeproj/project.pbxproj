@@ -13,6 +13,12 @@
 		485F8888243CBA2D0026FBD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F8886243CBA2D0026FBD6 /* Main.storyboard */; };
 		485F888A243CBA300026FBD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 485F8889243CBA300026FBD6 /* Assets.xcassets */; };
 		485F888D243CBA300026FBD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F888B243CBA300026FBD6 /* LaunchScreen.storyboard */; };
+		485F8897243CBD970026FBD6 /* Boarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F8896243CBD970026FBD6 /* Boarding.storyboard */; };
+		485F889B243CBE350026FBD6 /* Session.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F889A243CBE350026FBD6 /* Session.storyboard */; };
+		485F889E243CC0C00026FBD6 /* AddTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F889D243CC0C00026FBD6 /* AddTask.storyboard */; };
+		485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F889F243CC9FE0026FBD6 /* Session.swift */; };
+		485F88A3243CCBA60026FBD6 /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F88A2243CCBA60026FBD6 /* TaskList.storyboard */; };
+		485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F88A4243CD22B0026FBD6 /* TaskList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		485F8889243CBA300026FBD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		485F888C243CBA300026FBD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		485F888E243CBA300026FBD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		485F8896243CBD970026FBD6 /* Boarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Boarding.storyboard; sourceTree = "<group>"; };
+		485F889A243CBE350026FBD6 /* Session.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Session.storyboard; sourceTree = "<group>"; };
+		485F889D243CC0C00026FBD6 /* AddTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTask.storyboard; sourceTree = "<group>"; };
+		485F889F243CC9FE0026FBD6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		485F88A2243CCBA60026FBD6 /* TaskList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskList.storyboard; sourceTree = "<group>"; };
+		485F88A4243CD22B0026FBD6 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,10 @@
 		485F887F243CBA2D0026FBD6 /* MC1-DailyTImer */ = {
 			isa = PBXGroup;
 			children = (
+				485F88A1243CCB900026FBD6 /* TaskList */,
+				485F889C243CC0A00026FBD6 /* AddTask */,
+				485F8899243CBE250026FBD6 /* Session */,
+				485F8895243CBB800026FBD6 /* BoardingApp */,
 				485F8880243CBA2D0026FBD6 /* AppDelegate.swift */,
 				485F8882243CBA2D0026FBD6 /* SceneDelegate.swift */,
 				485F8884243CBA2D0026FBD6 /* ViewController.swift */,
@@ -65,6 +81,40 @@
 				485F888E243CBA300026FBD6 /* Info.plist */,
 			);
 			path = "MC1-DailyTImer";
+			sourceTree = "<group>";
+		};
+		485F8895243CBB800026FBD6 /* BoardingApp */ = {
+			isa = PBXGroup;
+			children = (
+				485F8896243CBD970026FBD6 /* Boarding.storyboard */,
+			);
+			path = BoardingApp;
+			sourceTree = "<group>";
+		};
+		485F8899243CBE250026FBD6 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				485F889A243CBE350026FBD6 /* Session.storyboard */,
+				485F889F243CC9FE0026FBD6 /* Session.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		485F889C243CC0A00026FBD6 /* AddTask */ = {
+			isa = PBXGroup;
+			children = (
+				485F889D243CC0C00026FBD6 /* AddTask.storyboard */,
+			);
+			path = AddTask;
+			sourceTree = "<group>";
+		};
+		485F88A1243CCB900026FBD6 /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				485F88A2243CCBA60026FBD6 /* TaskList.storyboard */,
+				485F88A4243CD22B0026FBD6 /* TaskList.swift */,
+			);
+			path = TaskList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +175,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				485F88A3243CCBA60026FBD6 /* TaskList.storyboard in Resources */,
+				485F8897243CBD970026FBD6 /* Boarding.storyboard in Resources */,
+				485F889B243CBE350026FBD6 /* Session.storyboard in Resources */,
 				485F888D243CBA300026FBD6 /* LaunchScreen.storyboard in Resources */,
+				485F889E243CC0C00026FBD6 /* AddTask.storyboard in Resources */,
 				485F888A243CBA300026FBD6 /* Assets.xcassets in Resources */,
 				485F8888243CBA2D0026FBD6 /* Main.storyboard in Resources */,
 			);
@@ -138,6 +192,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */,
+				485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */,
 				485F8885243CBA2D0026FBD6 /* ViewController.swift in Sources */,
 				485F8881243CBA2D0026FBD6 /* AppDelegate.swift in Sources */,
 				485F8883243CBA2D0026FBD6 /* SceneDelegate.swift in Sources */,
