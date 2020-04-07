@@ -16,6 +16,14 @@ class Session: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+    
+    @IBAction func ToEndSession(_ sender: Any) {
+        self.performSegue(withIdentifier: "toEndSession", sender: nil)
+    }
+    
 
     /*
     // MARK: - Navigation
