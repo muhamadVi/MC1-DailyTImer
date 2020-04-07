@@ -27,6 +27,14 @@ class TaskList: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAddTask"{
             
+        }else if segue.identifier == "toStartSession"{
+            if let destination = segue.destination as? Session{
+                //pas ngirim waktunya menit nya dijadiin sekon dulu menit*60
+                //ini buat tes doang
+                //kalo nanti yang dikirim struct nya aja
+                
+                destination.timeInput = 5
+            }
         }
     }
     
