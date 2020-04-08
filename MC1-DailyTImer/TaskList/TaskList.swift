@@ -18,7 +18,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     struct Task {
              var taskName: String
              var taskDesc: String
+             var estimatedTime: Int
+             var timePerSession: Int
+             var breakPerSession: Int
+             var priority: String
+            
     }*/
+    
     
     let taskSections = ["Your Upcoming Task", "Your Completed Task"]
     

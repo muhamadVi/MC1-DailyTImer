@@ -10,10 +10,10 @@ import UIKit
 
 class Session: UIViewController {
     //label kiri
-    @IBOutlet weak var lblTaskName: UILabel!
+    //@IBOutlet weak var lblTaskName: UILabel!
     @IBOutlet weak var lblEstimatedTime: UILabel!
     @IBOutlet weak var lblCurrentSession: UILabel!
-    @IBOutlet weak var lblTaskDesc: UILabel!
+    //@IBOutlet weak var lblTaskDesc: UILabel!
     
     //label kanan
     @IBOutlet weak var lblInTaskName: UILabel!
@@ -26,32 +26,51 @@ class Session: UIViewController {
     @IBOutlet weak var lblTimerSecond: UILabel!
         
     var timer: Timer?
-    var timeInput = 0
     var timeLeft = 0
     
+    //buat nampung atribut task
+    var taskName: String = ""
+    var taskDesc: String = ""
+    var timeInput = 75
+    var breakInput = 20
     var currentSession = 1
-    var totalSession = 10
+    //ngitung banyaknya sesi
+    var totalSession = 0
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.totalSession = hitungTotalSesi(timeInput: 75, breakInput: 20)
+        
 
         // Do any additional setup after loading the view.
-        initUI()
-        startTimer()
-            
-        
-        
         
         
         
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        if currentSession <= totalSession{
+            initUI()
+        
+            startTimer()
+            print("sekarang sesi \(currentSession) total sesi ada \(totalSession)")
+        }
+        
+        
+    }
+    
+    
+    func hitungTotalSesi(timeInput: Int, breakInput: Int) -> Int{
+        return timeInput/breakInput
+    }
     func initUI(){
         self.timeLeft = timeInput
-        lblTaskName.text = "Current Task: "
+        
+        //lblTaskName.text = "Current Task: "
         lblEstimatedTime.text = "Estimated Time: "
         lblCurrentSession.text = "Current Session:"
-        lblTaskDesc.text = "Task Description: "
+        //lblTaskDesc.text = "Task Description: "
         
         lblInTaskName.text = "" //nama task
         lblInEstimatedTime.text = "" //
@@ -73,8 +92,6 @@ class Session: UIViewController {
     }
     
     func startTimer(){
-        print("sekarang sesi \(currentSession)")
-        self.currentSession += 1
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
         
     }
@@ -100,17 +117,25 @@ class Session: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if let destination = segue.destination as? BreakPageVC{
+            destination.currentSession = currentSession
+        }
     }
     
     @IBAction func ToEndSession(_ sender: Any) {
-        //self.performSegue(withIdentifier: "toEndSession", sender: nil)
-        if currentSession <= totalSession{
-            initUI()
-            startTimer()
-        }else{
-            print("Session Done")
-        }
+        self.performSegue(withIdentifier: "toEndSession", sender: nil)
+//        if currentSession <= totalSession{
+//            initUI()
+//            startTimer()
+//        }else{
+//            print("Session Done")
+//        }
+    }
+    
+    @IBAction func unwindToSession(_ unwindSegue: UIStoryboardSegue) {
+        let sourceViewController = unwindSegue.source
+        // Use data from the view controller which initiated the unwind segue
+        
     }
     
 

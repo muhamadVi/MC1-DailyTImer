@@ -19,6 +19,7 @@
 		485F88A3243CCBA60026FBD6 /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F88A2243CCBA60026FBD6 /* TaskList.storyboard */; };
 		485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F88A4243CD22B0026FBD6 /* TaskList.swift */; };
 		48EB89DE243E02D8005F9D52 /* Boarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB89DD243E02D8005F9D52 /* Boarding.swift */; };
+		4B3AF793243E2656004061CE /* BreakPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3AF792243E2656004061CE /* BreakPageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		485F88A2243CCBA60026FBD6 /* TaskList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskList.storyboard; sourceTree = "<group>"; };
 		485F88A4243CD22B0026FBD6 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
 		48EB89DD243E02D8005F9D52 /* Boarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boarding.swift; sourceTree = "<group>"; };
+		4B3AF792243E2656004061CE /* BreakPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				485F889A243CBE350026FBD6 /* Session.storyboard */,
+				4B3AF792243E2656004061CE /* BreakPageVC.swift */,
 				485F889F243CC9FE0026FBD6 /* Session.swift */,
 			);
 			path = Session;
@@ -193,6 +196,7 @@
 			files = (
 				485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */,
 				485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */,
+				4B3AF793243E2656004061CE /* BreakPageVC.swift in Sources */,
 				485F8885243CBA2D0026FBD6 /* ViewController.swift in Sources */,
 				485F8881243CBA2D0026FBD6 /* AppDelegate.swift in Sources */,
 				485F8883243CBA2D0026FBD6 /* SceneDelegate.swift in Sources */,
