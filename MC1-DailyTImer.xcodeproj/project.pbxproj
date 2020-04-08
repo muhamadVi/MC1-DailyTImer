@@ -75,7 +75,6 @@
 				485F8880243CBA2D0026FBD6 /* AppDelegate.swift */,
 				485F8882243CBA2D0026FBD6 /* SceneDelegate.swift */,
 				485F8884243CBA2D0026FBD6 /* ViewController.swift */,
-				485F8886243CBA2D0026FBD6 /* Main.storyboard */,
 				485F8889243CBA300026FBD6 /* Assets.xcassets */,
 				485F888B243CBA300026FBD6 /* LaunchScreen.storyboard */,
 				485F888E243CBA300026FBD6 /* Info.plist */,
@@ -86,6 +85,7 @@
 		485F8895243CBB800026FBD6 /* BoardingApp */ = {
 			isa = PBXGroup;
 			children = (
+				485F8886243CBA2D0026FBD6 /* Main.storyboard */,
 				485F8896243CBD970026FBD6 /* Boarding.storyboard */,
 			);
 			path = BoardingApp;
