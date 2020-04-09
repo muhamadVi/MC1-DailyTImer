@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CAB844F243DCF1E000A38D0 /* AddTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB844E243DCF1E000A38D0 /* AddTask.swift */; };
 		485F8881243CBA2D0026FBD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F8880243CBA2D0026FBD6 /* AppDelegate.swift */; };
 		485F8883243CBA2D0026FBD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F8882243CBA2D0026FBD6 /* SceneDelegate.swift */; };
 		485F8885243CBA2D0026FBD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F8884243CBA2D0026FBD6 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CAB844E243DCF1E000A38D0 /* AddTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTask.swift; sourceTree = "<group>"; };
 		485F887D243CBA2D0026FBD6 /* MC1-DailyTImer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MC1-DailyTImer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		485F8880243CBA2D0026FBD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		485F8882243CBA2D0026FBD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				485F889D243CC0C00026FBD6 /* AddTask.storyboard */,
+				2CAB844E243DCF1E000A38D0 /* AddTask.swift */,
 			);
 			path = AddTask;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			files = (
 				485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */,
 				485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */,
+				2CAB844F243DCF1E000A38D0 /* AddTask.swift in Sources */,
 				485F8885243CBA2D0026FBD6 /* ViewController.swift in Sources */,
 				485F8881243CBA2D0026FBD6 /* AppDelegate.swift in Sources */,
 				485F8883243CBA2D0026FBD6 /* SceneDelegate.swift in Sources */,
