@@ -16,23 +16,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userName = ""
     
-    
-//    struct Task {
-//             var taskName: String
-//             var taskDesc: String
-//             var estimatedTime: Int
-//             var timePerSession: Int
-//             var breakPerSession: Int
-//             var priority: String
-//    }
-    
     let upcomingTasks = [
             Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high"),
-            Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high")
+            Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high")
     ]
     
     let completedTasks = [
-            Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high")
+            Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high")
     ]
     
     override func viewDidLoad() {
@@ -97,8 +87,14 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print("row \(indexPath)")
         //INI GA NGERTI KENAPA CELLNYA GA MAU NGE-SEGUE
-        performSegue(withIdentifier: "toStartSession", sender: indexPath.row)
+        //Gue coba barusan cell nya belom bisa di klik -Reyhan
+        //pas tabble di klik print nya ga keluar
+        //nanti kalo tabble nya udah bisa di klik lu tinggal apus commend dibawah dua-duanya
+        
+//        let task  = upcomingTasks[index row nya nanti]
+//        performSegue(withIdentifier: "toStartSession", sender: task)
     }
     
     @IBAction func editNameClicked(_ sender: Any) {
@@ -111,6 +107,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func ToStartSession(_ sender: Any) {
+        
         let task  = upcomingTasks[0]
         self.performSegue(withIdentifier: "toStartSession", sender: task)
         
@@ -121,16 +118,6 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
         }else if segue.identifier == "toStartSession"{
                 if let destination = segue.destination as? Session{
-                /*ini buat tes doang
-                nanti yang dikirim struct aja
-                var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
-                totalsesi.round()
-                destination.timeInput = 20
-                destination.totalSession = Int(totalsesi)
-                destination.breakInput = 20
-                destination.taskName = taskList[0][0]["name"]!
-                destination.taskDesc = taskList[0][0]["desc"]!
-                 */
                 destination.initUI(task: sender as! Task)
             }
         }
