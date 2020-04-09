@@ -14,7 +14,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
     
-    /*
+    
     struct Task {
              var taskName: String
              var taskDesc: String
@@ -22,24 +22,16 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
              var timePerSession: Int
              var breakPerSession: Int
              var priority: String
-            
-    }*/
+    }
     
-    
-    let taskSections = ["Your Upcoming Task", "Your Completed Task"]
-    
-    let taskList = [[["name":"Coding", "desc":"Program Mini"], ["name":"Cuci", "desc":"piring gelas"]],
-                    [["name":"Belajar", "desc":"Mandarin"]]]
-    
-    /*
     let upcomingTasks = [
-            Task(taskName: "Coding", taskDesc: "MC-1"),
-            Task(taskName: "Cuci", taskDesc: "Piring")
+            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high"),
+            Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high")
     ]
     
     let completedTasks = [
-            Task(taskName: "Belajar", taskDesc: "Inggris")
-    ]*/
+            Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,12 +50,10 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.taskSections.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        /*
         let sectionName: String
         switch section {
             case 0:
@@ -74,17 +64,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 sectionName = ""
         }
         return sectionName
-        */
-        
-        return self.taskSections[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          if taskList.indices.contains(section) {
-              return taskList[section].count
-          } else {
-              return 0
-          }
+        if section == 0 {
+            return upcomingTasks.count
+        }
+        return completedTasks.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,22 +79,11 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
       
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! taskTableViewCell
-
         
-        if taskList.indices.contains(indexPath.section) {
-            cell.taskNameLb?.text = taskList[indexPath.section][indexPath.row]["name"]
-            cell.taskDescLb?.text = taskList[indexPath.section][indexPath.row]["desc"]
-        } else {
-            cell.taskNameLb?.text = nil
-            cell.taskDescLb?.text = nil
-        }
-        
-        /*
-        let task = tasks[indexPath.row]
+        let task = indexPath.section == 0 ? upcomingTasks[indexPath.row] : completedTasks[indexPath.row]
         
         cell.taskNameLb?.text = task.taskName
         cell.taskDescLb?.text = task.taskDesc
-        */
         
         return cell
     }
@@ -132,14 +107,16 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }else if segue.identifier == "toStartSession"{
             if let destination = segue.destination as? Session{
                 //ini buat tes doang
-                // nanti yang dikirim struct aja
-                var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
+                //nanti yang dikirim struct aja
+              /*  var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
                 totalsesi.round()
                 destination.timeInput = 20
                 destination.totalSession = Int(totalsesi)
                 destination.breakInput = 20
                 destination.taskName = taskList[0][0]["name"]!
                 destination.taskDesc = taskList[0][0]["desc"]!
+                 */
+                
             }
         }
     }
