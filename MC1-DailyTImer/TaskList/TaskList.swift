@@ -36,6 +36,8 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        taskTable.reloadData()
+        
         taskTable.dataSource = self
         taskTable.delegate = self
         
@@ -88,6 +90,11 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        //INI GA NGERTI KENAPA CELLNYA GA MAU NGE-SEGUE
+        performSegue(withIdentifier: "toStartSession", sender: indexPath.row)
+    }
     
     @IBAction func editNameClicked(_ sender: Any) {
         nameTxt.isEnabled = true
@@ -97,6 +104,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBAction func ToAddTask(_ sender: Any) {
         self.performSegue(withIdentifier: "toAddTask", sender: nil)
     }
+    
     @IBAction func ToStartSession(_ sender: Any) {
         self.performSegue(withIdentifier: "toStartSession", sender: nil)
     }
@@ -105,18 +113,17 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if segue.identifier == "toAddTask"{
             
         }else if segue.identifier == "toStartSession"{
-            if let destination = segue.destination as? Session{
-                //ini buat tes doang
-                //nanti yang dikirim struct aja
-              /*  var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
+                if let destination = segue.destination as? Session{
+                /*ini buat tes doang
+                nanti yang dikirim struct aja
+                var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
                 totalsesi.round()
                 destination.timeInput = 20
                 destination.totalSession = Int(totalsesi)
                 destination.breakInput = 20
                 destination.taskName = taskList[0][0]["name"]!
                 destination.taskDesc = taskList[0][0]["desc"]!
-                 */
-                
+                */
             }
         }
     }
