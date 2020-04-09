@@ -37,7 +37,6 @@ class BreakPageVC: UIViewController {
     
     func initUI(){
         
-        self.timeLeft = 5
         let minute = timeLeft/60
         let second = timeLeft%60
         if minute >= 10{
@@ -86,14 +85,9 @@ class BreakPageVC: UIViewController {
     
     //untuk naro unwind segue di back button navigation bar
     @IBAction func buttonBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
         
     }
-//    override func didMove(toParent parent: UIViewController?) {
-//        if (!(parent?.isEqual(self.parent) ?? false)) {
-//            print("Back Button Pressed!")
-//
-//        }
-//    }
     
 
     /*

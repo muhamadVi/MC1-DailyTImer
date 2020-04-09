@@ -131,11 +131,15 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             
         }else if segue.identifier == "toStartSession"{
             if let destination = segue.destination as? Session{
-                //pas ngirim waktunya menit nya dijadiin sekon dulu menit*60
                 //ini buat tes doang
-                //kalo nanti yang dikirim struct nya aja
-                
-                destination.timeInput = 5
+                // nanti yang dikirim struct aja
+                var totalsesi: Float = 30/20 //estimated sessionnya 30, time per session nya 20
+                totalsesi.round()
+                destination.timeInput = 20
+                destination.totalSession = Int(totalsesi)
+                destination.breakInput = 20
+                destination.taskName = taskList[0][0]["name"]!
+                destination.taskDesc = taskList[0][0]["desc"]!
             }
         }
     }

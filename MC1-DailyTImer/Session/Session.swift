@@ -31,16 +31,17 @@ class Session: UIViewController {
     //buat nampung atribut task
     var taskName: String = ""
     var taskDesc: String = ""
-    var timeInput = 75
-    var breakInput = 20
+    var timeInput = 0
+    var breakInput = 0
     var currentSession = 1
     //ngitung banyaknya sesi
     var totalSession = 0
+    var alert = UIAlertController()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.totalSession = hitungTotalSesi(timeInput: 75, breakInput: 20)
+        
         
 
         // Do any additional setup after loading the view.
@@ -50,20 +51,20 @@ class Session: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
         if currentSession <= totalSession{
             initUI()
         
             startTimer()
             print("sekarang sesi \(currentSession) total sesi ada \(totalSession)")
+            currentSession += 1
         }
         
         
     }
     
     
-    func hitungTotalSesi(timeInput: Int, breakInput: Int) -> Int{
-        return timeInput/breakInput
-    }
+    
     func initUI(){
         self.timeLeft = timeInput
         
@@ -72,10 +73,10 @@ class Session: UIViewController {
         lblCurrentSession.text = "Current Session:"
         //lblTaskDesc.text = "Task Description: "
         
-        lblInTaskName.text = "" //nama task
-        lblInEstimatedTime.text = "" //
+        lblInTaskName.text = taskName
+        lblInEstimatedTime.text = "\(timeInput)"
         lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
-        lblInTaskDesc.text = ""
+        lblInTaskDesc.text = taskDesc
         
         let minute = timeLeft/60
         let second = timeLeft%60
@@ -113,29 +114,51 @@ class Session: UIViewController {
 
         if timeLeft == 0 {
             timer?.invalidate()
+            alert.dismiss(animated: true, completion: nil)
+            showAlert(alertMessage: "Your Session is done. Go to break?")
+            
+            
         }
+    }
+    
+    func showAlert(alertMessage: String) {
+        alert = UIAlertController(title: "", message: alertMessage, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Oke", style: .cancel){
+            (action) in
+             self.performSegue(withIdentifier: "toEndSession", sender: nil)
+        }
+        
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? BreakPageVC{
-            destination.currentSession = currentSession
+            destination.timeLeft = breakInput
         }
     }
     
-    @IBAction func ToEndSession(_ sender: Any) {
-        self.performSegue(withIdentifier: "toEndSession", sender: nil)
-//        if currentSession <= totalSession{
-//            initUI()
-//            startTimer()
-//        }else{
-//            print("Session Done")
-//        }
+    @IBAction func btnStopped(_ sender: Any) {
+        if timeLeft == 0{
+            self.performSegue(withIdentifier: "toEndSession", sender: nil)
+        }else{
+            //ngasinh dia alert
+            alert = UIAlertController(title: "", message: "You still need to focus. Are you sure want to stop?", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Quit", style: .default){
+                (action) in self.navigationController?.popViewController(animated: true)
+            }
+            let gajadi = UIAlertAction(title: "gajadi", style: .cancel)
+            
+            alert.addAction(action)
+            alert.addAction(gajadi)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-    
-    @IBAction func unwindToSession(_ unwindSegue: UIStoryboardSegue) {
-        let sourceViewController = unwindSegue.source
-        // Use data from the view controller which initiated the unwind segue
+    @IBAction func ToEndSession(_ sender: Any) {
         
+//
     }
     
 
