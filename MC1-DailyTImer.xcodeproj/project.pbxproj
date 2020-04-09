@@ -14,12 +14,13 @@
 		485F8888243CBA2D0026FBD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F8886243CBA2D0026FBD6 /* Main.storyboard */; };
 		485F888A243CBA300026FBD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 485F8889243CBA300026FBD6 /* Assets.xcassets */; };
 		485F888D243CBA300026FBD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F888B243CBA300026FBD6 /* LaunchScreen.storyboard */; };
-		485F8897243CBD970026FBD6 /* Boarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F8896243CBD970026FBD6 /* Boarding.storyboard */; };
 		485F889B243CBE350026FBD6 /* Session.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F889A243CBE350026FBD6 /* Session.storyboard */; };
 		485F889E243CC0C00026FBD6 /* AddTask.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F889D243CC0C00026FBD6 /* AddTask.storyboard */; };
 		485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F889F243CC9FE0026FBD6 /* Session.swift */; };
 		485F88A3243CCBA60026FBD6 /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485F88A2243CCBA60026FBD6 /* TaskList.storyboard */; };
 		485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485F88A4243CD22B0026FBD6 /* TaskList.swift */; };
+		48EB89DE243E02D8005F9D52 /* Boarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB89DD243E02D8005F9D52 /* Boarding.swift */; };
+		4B3AF793243E2656004061CE /* BreakPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3AF792243E2656004061CE /* BreakPageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,12 +33,13 @@
 		485F8889243CBA300026FBD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		485F888C243CBA300026FBD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		485F888E243CBA300026FBD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		485F8896243CBD970026FBD6 /* Boarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Boarding.storyboard; sourceTree = "<group>"; };
 		485F889A243CBE350026FBD6 /* Session.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Session.storyboard; sourceTree = "<group>"; };
 		485F889D243CC0C00026FBD6 /* AddTask.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddTask.storyboard; sourceTree = "<group>"; };
 		485F889F243CC9FE0026FBD6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		485F88A2243CCBA60026FBD6 /* TaskList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskList.storyboard; sourceTree = "<group>"; };
 		485F88A4243CD22B0026FBD6 /* TaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskList.swift; sourceTree = "<group>"; };
+		48EB89DD243E02D8005F9D52 /* Boarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boarding.swift; sourceTree = "<group>"; };
+		4B3AF792243E2656004061CE /* BreakPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				485F8886243CBA2D0026FBD6 /* Main.storyboard */,
-				485F8896243CBD970026FBD6 /* Boarding.storyboard */,
+				48EB89DD243E02D8005F9D52 /* Boarding.swift */,
 			);
 			path = BoardingApp;
 			sourceTree = "<group>";
@@ -97,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				485F889A243CBE350026FBD6 /* Session.storyboard */,
+				4B3AF792243E2656004061CE /* BreakPageVC.swift */,
 				485F889F243CC9FE0026FBD6 /* Session.swift */,
 			);
 			path = Session;
@@ -179,7 +182,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				485F88A3243CCBA60026FBD6 /* TaskList.storyboard in Resources */,
-				485F8897243CBD970026FBD6 /* Boarding.storyboard in Resources */,
 				485F889B243CBE350026FBD6 /* Session.storyboard in Resources */,
 				485F888D243CBA300026FBD6 /* LaunchScreen.storyboard in Resources */,
 				485F889E243CC0C00026FBD6 /* AddTask.storyboard in Resources */,
@@ -198,9 +200,11 @@
 				485F88A0243CC9FE0026FBD6 /* Session.swift in Sources */,
 				485F88A5243CD22B0026FBD6 /* TaskList.swift in Sources */,
 				2CAB844F243DCF1E000A38D0 /* AddTask.swift in Sources */,
+				4B3AF793243E2656004061CE /* BreakPageVC.swift in Sources */,
 				485F8885243CBA2D0026FBD6 /* ViewController.swift in Sources */,
 				485F8881243CBA2D0026FBD6 /* AppDelegate.swift in Sources */,
 				485F8883243CBA2D0026FBD6 /* SceneDelegate.swift in Sources */,
+				48EB89DE243E02D8005F9D52 /* Boarding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
