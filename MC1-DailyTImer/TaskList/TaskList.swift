@@ -14,6 +14,8 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
     
+    var userName = ""
+    
     
     struct Task {
              var taskName: String
@@ -45,6 +47,9 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.endEditing (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        
+        // Untuk Meng-set Nama
+        nameTxt.text = userName
     }
     
     @objc func endEditing (_ sender: UITapGestureRecognizer){

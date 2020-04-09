@@ -8,13 +8,16 @@
 
 import UIKit
 
-class Boarding: UIViewController {
+class Boarding: UIViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var layoutInputName: UIView!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var saveUsername: UIButton!
     
+    var userName = ""
+    
+    @IBOutlet weak var contoh: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +25,10 @@ class Boarding: UIViewController {
         
         
         //untuk membuat shadow
+        
 //        layoutInputName.layer.shadowColor = UIColor.black.cgColor
 //        layoutInputName.layer.shadowOpacity = 1
-////        layoutInputName.layer.shadowOffset = .zero
+//        layoutInputName.layer.shadowOffset = .zero
 //        layoutInputName.layer.shadowRadius = 5
 //      untuk membuat border di view
 //        username.layer.cornerRadius = 5
@@ -42,33 +46,56 @@ class Boarding: UIViewController {
 //        saveUsername.layer.borderWidth = 1
 //        view.addSubview(saveUsername)
         
-        
-        
+        // fitur untuk meng up and down keypad
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toTaskList"{
-            print("totasklist")
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
         }
     }
 
-    @IBAction func saveUsername(_ sender: Any) {
-        self.performSegue(withIdentifier: "toTaskList", sender: nil)
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
     
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textfield: UITextField) -> Bool {
+        textfield.resignFirstResponder()
+        
+        return true
     }
-    */
+    
+    // funt untuk up and down ketika di klik dimana saja
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toTaskList"{
+            if let destination = segue.destination as?
+                TaskList{
+                destination.userName = self.userName
+            }
+
+        }
+    }
+
+    
+    @IBAction func saveUsername(_ sender: Any) {
+        if let tempTxt = username.text{
+            userName = tempTxt
+        }
+        self.performSegue(withIdentifier: "toTaskList", sender: nil)
+        
+    }
+    
 
 }
