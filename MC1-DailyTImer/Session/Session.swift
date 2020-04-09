@@ -28,15 +28,17 @@ class Session: UIViewController {
     var timer: Timer?
     var timeLeft = 0
     
+    
     //buat nampung atribut task
     var taskName: String = ""
-    var taskDesc: String = ""
+    var taskDesc: String?
     var timeInput = 0
     var breakInput = 0
     var currentSession = 1
     //ngitung banyaknya sesi
     var totalSession = 0
     var alert = UIAlertController()
+    var task: Task?
     
 
     override func viewDidLoad() {
@@ -52,32 +54,37 @@ class Session: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
-        if currentSession <= totalSession{
-            initUI()
-        
-            startTimer()
-            print("sekarang sesi \(currentSession) total sesi ada \(totalSession)")
-            currentSession += 1
-        }
+        setUpPage()
+        startTimer()
         
         
     }
     
     
     
-    func initUI(){
-        self.timeLeft = timeInput
+    func initUI(task: Task){
+        self.task = task
+        self.taskName = task.taskName
+        self.taskDesc = task.taskDesc
+        self.timeInput = task.estimatedTime
+        self.breakInput = task.breakPerSession
+        self.timeLeft = task.timePerSession
+        var total = Float(timeInput)/Float(timeLeft)
+        total.round()
+        self.totalSession = Int(total)
         
-        //lblTaskName.text = "Current Task: "
-        lblEstimatedTime.text = "Estimated Time: "
-        lblCurrentSession.text = "Current Session:"
-        //lblTaskDesc.text = "Task Description: "
         
+        //self.totalSession = Int(total)
+        //setUpPage()
+    }
+    func setUpPage(){
+        lblCurrentSession.text = "Current Session"
+        lblEstimatedTime.text = "Estimated Time"
         lblInTaskName.text = taskName
         lblInEstimatedTime.text = "\(timeInput)"
         lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
-        lblInTaskDesc.text = taskDesc
-        
+        lblInTaskDesc.text = taskDesc!
+
         let minute = timeLeft/60
         let second = timeLeft%60
         if minute >= 10{
@@ -93,8 +100,14 @@ class Session: UIViewController {
     }
     
     func startTimer(){
+        let normalTime = task!.timePerSession
+        if currentSession < totalSession{
+            self.timeLeft = normalTime
+        }else if currentSession == totalSession{
+            self.timeLeft = timeInput % normalTime
+        }
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
-        
+        currentSession += 1
     }
     
     @objc func onTimerFires(){

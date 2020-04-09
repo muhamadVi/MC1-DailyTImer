@@ -15,17 +15,17 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var taskTable: UITableView!
     
     
-    struct Task {
-             var taskName: String
-             var taskDesc: String
-             var estimatedTime: Int
-             var timePerSession: Int
-             var breakPerSession: Int
-             var priority: String
-    }
+//    struct Task {
+//             var taskName: String
+//             var taskDesc: String
+//             var estimatedTime: Int
+//             var timePerSession: Int
+//             var breakPerSession: Int
+//             var priority: String
+//    }
     
     let upcomingTasks = [
-            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high"),
+            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high"),
             Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 1, timePerSession: 2, breakPerSession: 3, priority: "high")
     ]
     
@@ -98,7 +98,9 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         self.performSegue(withIdentifier: "toAddTask", sender: nil)
     }
     @IBAction func ToStartSession(_ sender: Any) {
-        self.performSegue(withIdentifier: "toStartSession", sender: nil)
+        let task  = upcomingTasks[0]
+        self.performSegue(withIdentifier: "toStartSession", sender: task)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,7 +118,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 destination.taskName = taskList[0][0]["name"]!
                 destination.taskDesc = taskList[0][0]["desc"]!
                  */
-                
+                destination.initUI(task: sender as! Task)
             }
         }
     }
