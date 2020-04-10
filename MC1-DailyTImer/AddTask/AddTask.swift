@@ -130,11 +130,11 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addTaskText.delegate = self
+        addTaskText2.delegate = self
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        addTaskText.text = taskName
         print(taskName)
         print(taskDescription)
         
