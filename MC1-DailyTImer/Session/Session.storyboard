@@ -53,9 +53,12 @@
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dlA-yy-wl0">
-                                <rect key="frame" x="184" y="371" width="46" height="20"/>
+                                <rect key="frame" x="184" y="366" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Stop"/>
+                                <connections>
+                                    <action selector="btnStopped:" destination="8Zq-XZ-Vqa" eventType="touchUpInside" id="N0O-rP-fGU"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1y-ox-6kI">
                                 <rect key="frame" x="211" y="460" width="183" height="40"/>
@@ -107,7 +110,7 @@
                         <outlet property="lblInTaskName" destination="cLf-4C-XIX" id="ZCo-xu-G43"/>
                         <outlet property="lblTimerMinute" destination="g56-6q-Dvc" id="rMX-IP-9Y1"/>
                         <outlet property="lblTimerSecond" destination="dqO-Fo-QDm" id="fPB-X5-cDm"/>
-                        <segue destination="hGp-W4-dGA" kind="push" identifier="toEndSession" id="Ku7-jl-Lw1"/>
+                        <segue destination="hGp-W4-dGA" kind="show" identifier="toEndSession" id="Y1a-wC-uUS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAw-0o-iDD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -117,7 +120,7 @@
         <!--Break PageVC-->
         <scene sceneID="WpR-ME-Qj3">
             <objects>
-                <viewController id="hGp-W4-dGA" customClass="BreakPageVC" customModule="MC1_DailyTImer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BreakPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hGp-W4-dGA" customClass="BreakPageVC" customModule="MC1_DailyTImer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9YT-We-R3z">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -150,8 +153,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="back"/>
                                 <connections>
-                                    <action selector="buttonBack:" destination="hGp-W4-dGA" eventType="touchUpInside" id="W9Y-V3-EpR"/>
-                                    <segue destination="OWT-Gh-rj1" kind="unwind" identifier="backToSession" unwindAction="unwindToSession:" id="C9L-Mb-tcM"/>
+                                    <action selector="buttonBack:" destination="hGp-W4-dGA" eventType="touchUpInside" id="WzL-wr-qNW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -165,7 +167,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYn-gb-Ek3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="OWT-Gh-rj1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3381" y="613"/>
         </scene>

@@ -14,35 +14,22 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
     
-    /*
-    struct Task {
-             var taskName: String
-             var taskDesc: String
-             var estimatedTime: Int
-             var timePerSession: Int
-             var breakPerSession: Int
-             var priority: String
-            
-    }*/
+    var userName = ""
     
-    
-    let taskSections = ["Your Upcoming Task", "Your Completed Task"]
-    
-    let taskList = [[["name":"Coding", "desc":"Program Mini"], ["name":"Cuci", "desc":"piring gelas"]],
-                    [["name":"Belajar", "desc":"Mandarin"]]]
-    
-    /*
     let upcomingTasks = [
-            Task(taskName: "Coding", taskDesc: "MC-1"),
-            Task(taskName: "Cuci", taskDesc: "Piring")
+            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high"),
+            Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high")
     ]
     
-    let completedTasks = [
-            Task(taskName: "Belajar", taskDesc: "Inggris")
-    ]*/
+    var completedTasks = [
+            Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high")
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        taskTable.reloadData()
         
         taskTable.dataSource = self
         taskTable.delegate = self
@@ -50,7 +37,12 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         nameTxt.isEnabled = false
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.endEditing (_:)))
+        tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
+        
+        
+        // Untuk Meng-set Nama
+        nameTxt.text = userName
     }
     
     @objc func endEditing (_ sender: UITapGestureRecognizer){
@@ -58,12 +50,10 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.taskSections.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        /*
         let sectionName: String
         switch section {
             case 0:
@@ -74,17 +64,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 sectionName = ""
         }
         return sectionName
-        */
-        
-        return self.taskSections[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-          if taskList.indices.contains(section) {
-              return taskList[section].count
-          } else {
-              return 0
-          }
+        if section == 0 {
+            return upcomingTasks.count
+        }
+        return completedTasks.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -93,26 +79,22 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
       
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! taskTableViewCell
-
         
-        if taskList.indices.contains(indexPath.section) {
-            cell.taskNameLb?.text = taskList[indexPath.section][indexPath.row]["name"]
-            cell.taskDescLb?.text = taskList[indexPath.section][indexPath.row]["desc"]
-        } else {
-            cell.taskNameLb?.text = nil
-            cell.taskDescLb?.text = nil
-        }
-        
-        /*
-        let task = tasks[indexPath.row]
+        let task = indexPath.section == 0 ? upcomingTasks[indexPath.row] : completedTasks[indexPath.row]
         
         cell.taskNameLb?.text = task.taskName
         cell.taskDescLb?.text = task.taskDesc
-        */
         
         return cell
     }
     
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task  = upcomingTasks[indexPath.row]
+        performSegue(withIdentifier: "toStartSession", sender: task)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     @IBAction func editNameClicked(_ sender: Any) {
         nameTxt.isEnabled = true
@@ -122,20 +104,20 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBAction func ToAddTask(_ sender: Any) {
         self.performSegue(withIdentifier: "toAddTask", sender: nil)
     }
+    
     @IBAction func ToStartSession(_ sender: Any) {
-        self.performSegue(withIdentifier: "toStartSession", sender: nil)
+        
+        let task  = upcomingTasks[0]
+        self.performSegue(withIdentifier: "toStartSession", sender: task)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAddTask"{
             
         }else if segue.identifier == "toStartSession"{
-            if let destination = segue.destination as? Session{
-                //pas ngirim waktunya menit nya dijadiin sekon dulu menit*60
-                //ini buat tes doang
-                //kalo nanti yang dikirim struct nya aja
-                
-                destination.timeInput = 5
+                if let destination = segue.destination as? Session{
+                destination.initUI(task: sender as! Task)
             }
         }
     }

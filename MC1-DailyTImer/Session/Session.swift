@@ -28,19 +28,22 @@ class Session: UIViewController {
     var timer: Timer?
     var timeLeft = 0
     
+    
     //buat nampung atribut task
     var taskName: String = ""
-    var taskDesc: String = ""
-    var timeInput = 75
-    var breakInput = 20
+    var taskDesc: String?
+    var timeInput = 0
+    var breakInput = 0
     var currentSession = 1
     //ngitung banyaknya sesi
     var totalSession = 0
+    var alert = UIAlertController()
+    var task: Task?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.totalSession = hitungTotalSesi(timeInput: 75, breakInput: 20)
+        
         
 
         // Do any additional setup after loading the view.
@@ -50,33 +53,37 @@ class Session: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if currentSession <= totalSession{
-            initUI()
-        
-            startTimer()
-            print("sekarang sesi \(currentSession) total sesi ada \(totalSession)")
-        }
+        self.navigationController?.navigationBar.isHidden = false
+        setUpPage()
+        startTimer()
         
         
     }
     
     
-    func hitungTotalSesi(timeInput: Int, breakInput: Int) -> Int{
-        return timeInput/breakInput
+    
+    func initUI(task: Task){
+        self.task = task
+        self.taskName = task.taskName
+        self.taskDesc = task.taskDesc
+        self.timeInput = task.estimatedTime
+        self.breakInput = task.breakPerSession
+        self.timeLeft = task.timePerSession
+        let total = Float(timeInput)/Float(timeLeft)
+        self.totalSession = Int(total.rounded(.up))
+        
+        
+        //self.totalSession = Int(total)
+        //setUpPage()
     }
-    func initUI(){
-        self.timeLeft = timeInput
-        
-        //lblTaskName.text = "Current Task: "
-        lblEstimatedTime.text = "Estimated Time: "
-        lblCurrentSession.text = "Current Session:"
-        //lblTaskDesc.text = "Task Description: "
-        
-        lblInTaskName.text = "" //nama task
-        lblInEstimatedTime.text = "" //
+    func setUpPage(){
+        lblCurrentSession.text = "Current Session"
+        lblEstimatedTime.text = "Estimated Time"
+        lblInTaskName.text = taskName
+        lblInEstimatedTime.text = "\(timeInput)"
         lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
-        lblInTaskDesc.text = ""
-        
+        lblInTaskDesc.text = taskDesc!
+
         let minute = timeLeft/60
         let second = timeLeft%60
         if minute >= 10{
@@ -92,8 +99,14 @@ class Session: UIViewController {
     }
     
     func startTimer(){
+        let normalTime = task!.timePerSession
+        if currentSession < totalSession{
+            self.timeLeft = normalTime
+        }else if currentSession == totalSession{
+            self.timeLeft = timeInput % normalTime
+        }
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
-        
+        currentSession += 1
     }
     
     @objc func onTimerFires(){
@@ -113,30 +126,53 @@ class Session: UIViewController {
 
         if timeLeft == 0 {
             timer?.invalidate()
+            alert.dismiss(animated: true, completion: nil)
+            showAlert(alertMessage: "Your Session is done. Go to break?")
+            
+            
         }
+    }
+    
+    func showAlert(alertMessage: String) {
+        alert = UIAlertController(title: "", message: alertMessage, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Oke", style: .cancel){
+            (action) in
+             self.performSegue(withIdentifier: "toEndSession", sender: nil)
+        }
+        
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? BreakPageVC{
-            destination.currentSession = currentSession
+            destination.timeLeft = breakInput
         }
     }
     
+    @IBAction func btnStopped(_ sender: Any) {
+        if timeLeft == 0{
+            self.performSegue(withIdentifier: "toEndSession", sender: nil)
+        }else{
+            //ngasinh dia alert
+            alert = UIAlertController(title: "", message: "You still need to focus. Are you sure want to stop?", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Quit", style: .default){
+                (action) in self.navigationController?.popViewController(animated: true)
+            }
+            let gajadi = UIAlertAction(title: "gajadi", style: .cancel)
+            
+            alert.addAction(action)
+            alert.addAction(gajadi)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     @IBAction func ToEndSession(_ sender: Any) {
-        self.performSegue(withIdentifier: "toEndSession", sender: nil)
-//        if currentSession <= totalSession{
-//            initUI()
-//            startTimer()
-//        }else{
-//            print("Session Done")
-//        }
+        
+//
     }
     
-    @IBAction func unwindToSession(_ unwindSegue: UIStoryboardSegue) {
-        let sourceViewController = unwindSegue.source
-        // Use data from the view controller which initiated the unwind segue
-        
-    }
     
 
     /*
