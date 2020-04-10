@@ -69,9 +69,8 @@ class Session: UIViewController {
         self.timeInput = task.estimatedTime
         self.breakInput = task.breakPerSession
         self.timeLeft = task.timePerSession
-        var total = Float(timeInput)/Float(timeLeft)
-        total.round()
-        self.totalSession = Int(total)
+        let total = Float(timeInput)/Float(timeLeft)
+        self.totalSession = Int(total.rounded(.up))
         
         
         //self.totalSession = Int(total)
@@ -173,6 +172,7 @@ class Session: UIViewController {
         
 //
     }
+    
     
 
     /*

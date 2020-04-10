@@ -21,9 +21,10 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high")
     ]
     
-    let completedTasks = [
+    var completedTasks = [
             Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high")
     ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,9 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         nameTxt.isEnabled = false
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.endEditing (_:)))
+        tapGesture.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tapGesture)
+        
         
         // Untuk Meng-set Nama
         nameTxt.text = userName
@@ -85,16 +88,12 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task  = upcomingTasks[indexPath.row]
+        performSegue(withIdentifier: "toStartSession", sender: task)
         tableView.deselectRow(at: indexPath, animated: true)
-        print("row \(indexPath)")
-        //INI GA NGERTI KENAPA CELLNYA GA MAU NGE-SEGUE
-        //Gue coba barusan cell nya belom bisa di klik -Reyhan
-        //pas tabble di klik print nya ga keluar
-        //nanti kalo tabble nya udah bisa di klik lu tinggal apus commend dibawah dua-duanya
-        
-//        let task  = upcomingTasks[index row nya nanti]
-//        performSegue(withIdentifier: "toStartSession", sender: task)
     }
     
     @IBAction func editNameClicked(_ sender: Any) {
