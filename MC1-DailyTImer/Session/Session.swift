@@ -11,7 +11,6 @@ import UIKit
 class Session: UIViewController {
     //label kiri
     //@IBOutlet weak var lblTaskName: UILabel!
-    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var lblEstimatedTime: UILabel!
     @IBOutlet weak var lblCurrentSession: UILabel!
     //@IBOutlet weak var lblTaskDesc: UILabel!
@@ -26,9 +25,15 @@ class Session: UIViewController {
     @IBOutlet weak var lblTimerMinute: UILabel!
     @IBOutlet weak var lblTimerSecond: UILabel!
         
+    @IBOutlet weak var progressCircle: progressView!
     @IBOutlet weak var middleButton: UIButton!
     var timer: Timer?
     var timeLeft = 0
+    var progress: Float = 0.0
+    var progressLine = 0
+    var fullCircle = 0
+    
+    var waktu = 0
     
     
     //buat nampung atribut task
@@ -56,6 +61,11 @@ class Session: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        progressCircle.trackColor = UIColor.red
+        progressCircle.progressColor = UIColor.blue
+        progressCircle.setProgressWithAnimation(duration: 1.0, value: 0.0)
+
+        self.progressLine = 0
         if currentSession > totalSession{
             alert = UIAlertController(title: "", message: "Are you done", preferredStyle: .alert)
             let action = UIAlertAction(title: "yes", style: .default){
@@ -76,11 +86,12 @@ class Session: UIViewController {
         self.task = task
         self.taskName = task.taskName
         self.taskDesc = task.taskDesc
-        self.timeInput = task.estimatedTime
-        self.breakInput = task.breakPerSession
-        self.timeLeft = task.timePerSession
+        self.timeInput = task.estimatedTime*60
+        self.breakInput = task.breakPerSession*60
+        self.timeLeft = task.timePerSession*60
         let total = Float(timeInput)/Float(timeLeft)
         self.totalSession = Int(total.rounded(.up))
+        self.waktu = task.timePerSession*60
     }
     func setUpPage(){
         lblCurrentSession.text = "Current Session"
@@ -104,11 +115,13 @@ class Session: UIViewController {
          lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
         middleButton.setTitle("Start", for: .normal)
         self.modeButton = "start"
+        
     }
     
-    func startTimer(timeleft: Int){
+    func startTimer(timeleft: Int, fullCircle: Int){
         
         self.timeLeft = timeleft
+        self.fullCircle = fullCircle
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
         
         
@@ -116,7 +129,7 @@ class Session: UIViewController {
     }
     
     @objc func onTimerFires(){
-        timeLeft -= 1
+        
         let minute = timeLeft/60
         let second = timeLeft%60
         if minute >= 10{
@@ -129,7 +142,12 @@ class Session: UIViewController {
         }else if second < 10 {
             lblTimerSecond.text = "0\(second)"
         }
-        image.transform = image.transform.rotated(by: CGFloat(Double.pi / 6)) //90 degree
+        
+        
+        
+        progress = Float(progressLine)/Float(self.fullCircle)
+        progressCircle.setProgressWithAnimation(duration: 1.0, value: progress)
+        print("\(progressLine): \(progress)")
 
 
         if timeLeft == 0 {
@@ -137,6 +155,9 @@ class Session: UIViewController {
             alert.dismiss(animated: true, completion: nil)
             showAlert(alertMessage: "Your Session is done. Go to break?")
         }
+        timeLeft -= 1
+        self.progressLine += 1
+        
     }
     
     func showAlert(alertMessage: String) {
@@ -160,13 +181,14 @@ class Session: UIViewController {
     @IBAction func btnPause(_ sender: Any) {
         switch modeButton {
         case "start":
-            let timeleft = task!.timePerSession
+            
             if self.currentSession < totalSession{
-                startTimer(timeleft: timeleft)
+                startTimer(timeleft: waktu, fullCircle: waktu)
                 
             }else if currentSession == totalSession{
-                let sisaWaktu = self.timeInput % timeleft
-                startTimer(timeleft: sisaWaktu)
+                let sisaWaktu = self.timeInput % waktu
+                startTimer(timeleft: sisaWaktu, fullCircle: sisaWaktu)
+                
             }
             self.currentSession += 1
             self.modeButton = "pause"
@@ -176,14 +198,14 @@ class Session: UIViewController {
             timer?.invalidate()
             //ngasinh dia alert
             alert = UIAlertController(title: "", message: "You still need to focus.", preferredStyle: .alert)
-            
             let action = UIAlertAction(title: "Stop", style: .default){
                 (action) in self.navigationController?.popViewController(animated: true)
                 self.timer?.invalidate()
             }
             let gajadi = UIAlertAction(title: "Resume", style: .default){
                 (action) in
-                self.startTimer(timeleft: self.timeLeft)
+                let sisaWaktu = self.timeInput % self.waktu
+                self.startTimer(timeleft: self.timeLeft, fullCircle: sisaWaktu)
             }
             alert.addAction(action)
             alert.addAction(gajadi)
@@ -194,7 +216,7 @@ class Session: UIViewController {
         
     }
     @IBAction func ToEndSession(_ sender: Any) {
-        
+        timer?.invalidate()
 //
     }
     
