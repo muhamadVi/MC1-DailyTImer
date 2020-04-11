@@ -11,6 +11,7 @@ import UIKit
 class Session: UIViewController {
     //label kiri
     //@IBOutlet weak var lblTaskName: UILabel!
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var lblEstimatedTime: UILabel!
     @IBOutlet weak var lblCurrentSession: UILabel!
     //@IBOutlet weak var lblTaskDesc: UILabel!
@@ -25,6 +26,7 @@ class Session: UIViewController {
     @IBOutlet weak var lblTimerMinute: UILabel!
     @IBOutlet weak var lblTimerSecond: UILabel!
         
+    @IBOutlet weak var middleButton: UIButton!
     var timer: Timer?
     var timeLeft = 0
     
@@ -39,7 +41,7 @@ class Session: UIViewController {
     var totalSession = 0
     var alert = UIAlertController()
     var task: Task?
-    
+    var modeButton = "start"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,11 +55,19 @@ class Session: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
+        if currentSession > totalSession{
+            alert = UIAlertController(title: "", message: "Are you done", preferredStyle: .alert)
+            let action = UIAlertAction(title: "yes", style: .default){
+                (action) in
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+            alert.addAction(action)
+            self.present(alert, animated: true, completion: nil)
+        
+        }
         setUpPage()
-        startTimer()
-        
-        
     }
     
     
@@ -71,17 +81,12 @@ class Session: UIViewController {
         self.timeLeft = task.timePerSession
         let total = Float(timeInput)/Float(timeLeft)
         self.totalSession = Int(total.rounded(.up))
-        
-        
-        //self.totalSession = Int(total)
-        //setUpPage()
     }
     func setUpPage(){
         lblCurrentSession.text = "Current Session"
         lblEstimatedTime.text = "Estimated Time"
         lblInTaskName.text = taskName
         lblInEstimatedTime.text = "\(timeInput)"
-        lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
         lblInTaskDesc.text = taskDesc!
 
         let minute = timeLeft/60
@@ -96,17 +101,18 @@ class Session: UIViewController {
         }else if second < 10 {
             lblTimerSecond.text = "0\(second)"
         }
+         lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
+        middleButton.setTitle("Start", for: .normal)
+        self.modeButton = "start"
     }
     
-    func startTimer(){
-        let normalTime = task!.timePerSession
-        if currentSession < totalSession{
-            self.timeLeft = normalTime
-        }else if currentSession == totalSession{
-            self.timeLeft = timeInput % normalTime
-        }
+    func startTimer(timeleft: Int){
+        
+        self.timeLeft = timeleft
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
-        currentSession += 1
+        
+        
+        
     }
     
     @objc func onTimerFires(){
@@ -123,13 +129,13 @@ class Session: UIViewController {
         }else if second < 10 {
             lblTimerSecond.text = "0\(second)"
         }
+        image.transform = image.transform.rotated(by: CGFloat(Double.pi / 6)) //90 degree
+
 
         if timeLeft == 0 {
             timer?.invalidate()
             alert.dismiss(animated: true, completion: nil)
             showAlert(alertMessage: "Your Session is done. Go to break?")
-            
-            
         }
     }
     
@@ -151,22 +157,41 @@ class Session: UIViewController {
         }
     }
     
-    @IBAction func btnStopped(_ sender: Any) {
-        if timeLeft == 0{
-            self.performSegue(withIdentifier: "toEndSession", sender: nil)
-        }else{
-            //ngasinh dia alert
-            alert = UIAlertController(title: "", message: "You still need to focus. Are you sure want to stop?", preferredStyle: .alert)
-            
-            let action = UIAlertAction(title: "Quit", style: .default){
-                (action) in self.navigationController?.popViewController(animated: true)
+    @IBAction func btnPause(_ sender: Any) {
+        switch modeButton {
+        case "start":
+            let timeleft = task!.timePerSession
+            if self.currentSession < totalSession{
+                startTimer(timeleft: timeleft)
+                
+            }else if currentSession == totalSession{
+                let sisaWaktu = self.timeInput % timeleft
+                startTimer(timeleft: sisaWaktu)
             }
-            let gajadi = UIAlertAction(title: "gajadi", style: .cancel)
+            self.currentSession += 1
+            self.modeButton = "pause"
+            middleButton.setTitle("Pause", for: .normal)
             
+        case "pause":
+            timer?.invalidate()
+            //ngasinh dia alert
+            alert = UIAlertController(title: "", message: "You still need to focus.", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Stop", style: .default){
+                (action) in self.navigationController?.popViewController(animated: true)
+                self.timer?.invalidate()
+            }
+            let gajadi = UIAlertAction(title: "Resume", style: .default){
+                (action) in
+                self.startTimer(timeleft: self.timeLeft)
+            }
             alert.addAction(action)
             alert.addAction(gajadi)
             self.present(alert, animated: true, completion: nil)
+        default:
+            0
         }
+        
     }
     @IBAction func ToEndSession(_ sender: Any) {
         

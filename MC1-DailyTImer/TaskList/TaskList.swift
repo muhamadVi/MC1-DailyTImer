@@ -17,7 +17,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userName = ""
     
     let upcomingTasks = [
-            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high"),
+            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 15, timePerSession: 10, breakPerSession: 5, priority: "high"),
             Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high")
     ]
     
@@ -37,7 +37,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         nameTxt.isEnabled = false
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.endEditing (_:)))
-        tapGesture.cancelsTouchesInView = false
+        tapGesture.cancelsTouchesInView = false //nambah ini doang 1 baris
         self.view.addGestureRecognizer(tapGesture)
         
         
