@@ -101,7 +101,7 @@
                         <outlet property="nameTxt" destination="DqJ-NF-GOc" id="agt-Vb-kUe"/>
                         <outlet property="taskTable" destination="dsw-UG-mIQ" id="bqN-em-EN7"/>
                         <segue destination="jZf-n4-PHe" kind="show" identifier="toStartSession" id="TjN-OX-P04"/>
-                        <segue destination="ocI-Qf-6OC" kind="show" identifier="toAddTask" id="x6j-Do-aOF"/>
+                        <segue destination="ocI-Qf-6OC" kind="presentation" identifier="toAddTask" id="x6j-Do-aOF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nv1-Hv-yWv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
