@@ -110,7 +110,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cVz-ao-TQy">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="mbt-ax-bK1"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="mbt-ax-bK1">
+                            <connections>
+                                <action selector="cancelButton:" destination="SWS-dq-QHF" id="KDM-pw-fFL"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="dbn-5R-0ki">
                             <connections>
                                 <action selector="doneButton:" destination="SWS-dq-QHF" id="FHa-ex-5pD"/>
