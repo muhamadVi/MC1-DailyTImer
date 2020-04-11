@@ -14,4 +14,5 @@ struct Task {
          var timePerSession: Int
          var breakPerSession: Int
          var priority: String
+         var status: Bool
 }
