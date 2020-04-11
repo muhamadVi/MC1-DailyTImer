@@ -17,7 +17,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userName = ""
     
     var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high", status: false),
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
         Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
     ]
     
@@ -48,7 +48,6 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         var currentValue = 0
         for task in upcomingTasks {
             if(task.status == false){
-                task.status == true
                 completedTasks.insert(task, at: 0)
                 upcomingTasks.remove(at: currentValue)
             }
