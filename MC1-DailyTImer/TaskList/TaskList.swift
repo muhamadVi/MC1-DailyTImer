@@ -16,19 +16,19 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userName = ""
     
-    let upcomingTasks = [
-            Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 15, timePerSession: 10, breakPerSession: 5, priority: "high"),
-            Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high")
+    var upcomingTasks = [
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
     ]
     
     var completedTasks = [
-            Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high")
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high", status: true)
     ]
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkStatus()
         taskTable.reloadData()
         
         taskTable.dataSource = self
@@ -40,9 +40,19 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tapGesture.cancelsTouchesInView = false //nambah ini doang 1 baris
         self.view.addGestureRecognizer(tapGesture)
         
-        
         // Untuk Meng-set Nama
         nameTxt.text = userName
+    }
+    
+    func checkStatus(){
+        var currentValue = 0
+        for task in upcomingTasks {
+            if(task.status == false){
+                completedTasks.insert(task, at: 0)
+                upcomingTasks.remove(at: currentValue)
+            }
+            currentValue += 1
+        }
     }
     
     @objc func endEditing (_ sender: UITapGestureRecognizer){
@@ -88,11 +98,11 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let task  = upcomingTasks[indexPath.row]
-        performSegue(withIdentifier: "toStartSession", sender: task)
+        if indexPath.section == 0 {
+            let task  = upcomingTasks[indexPath.row]
+            performSegue(withIdentifier: "toStartSession", sender: task)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

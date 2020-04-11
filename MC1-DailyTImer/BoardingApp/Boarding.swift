@@ -11,7 +11,7 @@ import UIKit
 class Boarding: UIViewController, UITextFieldDelegate {
 
     
-    @IBOutlet weak var layoutInputName: UIView!
+//    @IBOutlet weak var layoutInputName: UIView!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var saveUsername: UIButton!
     
@@ -36,10 +36,10 @@ class Boarding: UIViewController, UITextFieldDelegate {
 //        username.layer.borderWidth = 1
 //        view.addSubview(username)
         
-        layoutInputName.layer.cornerRadius = 8
-        layoutInputName.layer.borderWidth = 1
-        layoutInputName.layer.borderColor = UIColor.gray.cgColor
-        view.addSubview(layoutInputName)
+//        layoutInputName.layer.cornerRadius = 8
+//        layoutInputName.layer.borderWidth = 1
+//        layoutInputName.layer.borderColor = UIColor.gray.cgColor
+//        view.addSubview(layoutInputName)
         
 //        saveUsername.layer.cornerRadius = 5
 //        saveUsername.layer.borderColor = UIColor.black.cgColor

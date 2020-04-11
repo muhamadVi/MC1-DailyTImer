@@ -20,13 +20,57 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
         
     var newPickerView = UIPickerView()
     var currentTextField = UITextField()
-
-    var taskName: String = ""
-    var taskDescription: String = ""
-    var estimatedSession = 0
-    var timePerSession = 0
-    var breakTimePerSession = 0
-    var priority = ""
+    
+    /*DATA VARIABLE UNTUK DIPINDAHKAN:
+    taskName, taskDescription, estimatedSession, timePerSession, breakTimePerSession, priority */
+    var taskName: String{
+             get {
+                 return addTaskText.text ?? ""
+             }
+             set {
+                 addTaskText.text = newValue
+             }
+         }
+    var taskDescription: String{
+             get {
+                 return addTaskText2.text ?? ""
+             }
+             set {
+                 addTaskText2.text = newValue
+             }
+         }
+    var priority: String{
+             get {
+                 return priorityField.text ?? ""
+             }
+             set {
+                 priorityField.text = newValue
+             }
+         }
+    var estimatedSession: String{
+             get {
+                 return estSessionField.text ?? ""
+             }
+             set {
+                 estSessionField.text = newValue
+             }
+         }
+    var timePerSession: String{
+             get {
+                 return timeSessionField.text ?? ""
+             }
+             set {
+                 timeSessionField.text = newValue
+             }
+         }
+    var breakTimePerSession: String{
+             get {
+                 return breakField.text ?? ""
+             }
+             set {
+                 breakField.text = newValue
+             }
+         }
     
     var estimatedSessionArr = ["1","2","3"]
     var timePerSessionArr = ["20","25","30"]
@@ -79,39 +123,12 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        currentTextField = textField
-        if currentTextField == addTaskText{
-            textField.resignFirstResponder()
-        }
-        if currentTextField == addTaskText2{
-            textField.resignFirstResponder()
-        }
-        
-        return true
-    }
-    
     func textFieldDidBeginEditing(_ textField: UITextField){
         newPickerView.dataSource = self
         newPickerView.delegate = self
         
-        newPickerView.backgroundColor = UIColor(red: 207/255, green: 212/255, blue: 218/255, alpha: 1)
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector (categoryDoneClicked))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector (categoryDoneClicked))
-        
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-                
         currentTextField = textField
-        currentTextField.inputAccessoryView = toolBar
-        if currentTextField == estSessionField{
+        if textField == estSessionField{
             estSessionField.inputView = newPickerView
         }else if textField == timeSessionField{
             timeSessionField.inputView = newPickerView
@@ -120,26 +137,57 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
         }else if textField == priorityField{
             priorityField.inputView = newPickerView
         }
+        
+        newPickerView.backgroundColor = UIColor(red: 207/255, green: 212/255, blue: 218/255, alpha: 1)
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector (categoryDoneClicked))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+//        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector (categoryDoneClicked))
+        toolBar.setItems([spaceButton, doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        currentTextField.inputAccessoryView = toolBar
+
+                
     }
-    
     @objc func categoryDoneClicked() {
         currentTextField.inputView = newPickerView
         self.view.endEditing(true)
     }
     
+    func showAlert() {
+        let alert = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTaskText.delegate = self
-        addTaskText2.delegate = self
-    }
-    
-    @IBAction func doneButton(_ sender: Any) {
-        print(taskName)
-        print(taskDescription)
         
     }
     
+    @IBAction func doneButton(_ sender: Any) {
+        if (taskName == "") || (taskDescription == "") || (estimatedSession == "") || (timePerSession == "") || (breakTimePerSession == "") || (priority == ""){
+           showAlert()
+        }else{
+            print(taskName)
+            print(taskDescription)
+            print(estimatedSession)
+            print(timePerSession)
+            print(breakTimePerSession)
+            print(priority)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
