@@ -12,7 +12,9 @@ class BreakPageVC: UIViewController {
 
     // label timer
     @IBOutlet weak var lblTimerMinute: UILabel!
-    @IBOutlet weak var lblTimerSecond: UILabel!
+    @IBOutlet weak var progressCircle: progressView!
+    @IBOutlet weak var middleButton: UIButton!
+    
     var timer: Timer?
     var timeInput = 0
     var timeLeft = 0
@@ -20,18 +22,23 @@ class BreakPageVC: UIViewController {
     var currentSession = 0
     var totalSession = 0
     
+    var progress: Float = 0.0
+    var progressLine = 0
+    var fullCircle = 0
+    
+    var modeButton = "Start"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //untuk hide navigation bar
         self.navigationController?.navigationBar.isHidden = true
         
-        // tanya ini, mau ganti label "back" di navigation bar
-        //self.navigationItem.backBarButtonItem?.title = "s"
+        progressCircle.trackColor = UIColor.white.withAlphaComponent(0.5)
+        progressCircle.progressColor = UIColor(red: 22.0/255.0, green: 40.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+        progressCircle.setProgressWithAnimation(duration: 1.0, value: 0.0)
         
         // Do any additional setup after loading the view.
         initUI()
-        startTimer()
         
     }
     
@@ -39,43 +46,45 @@ class BreakPageVC: UIViewController {
         
         let minute = timeLeft/60
         let second = timeLeft%60
-        if minute >= 10{
-            lblTimerMinute.text = "\(minute):"
-        }else{
-            lblTimerMinute.text = "0\(minute):"
+        if (minute >= 10) && (second >= 10){
+            lblTimerMinute.text = "\(minute):\(second)"
+        }else if (minute >= 10) && (second < 10){
+            lblTimerMinute.text = "\(minute):0\(second)"
+        }else if (minute < 10) && (second >= 10){
+            lblTimerMinute.text = "0\(minute):\(second)"
+        }else if (minute < 10) && (second < 10){
+            lblTimerMinute.text = "0\(minute):0\(second)"
         }
-        if second >= 10 {
-            lblTimerSecond.text = "\(second)"
-        }else if second < 10 {
-            lblTimerSecond.text = "0\(second)"
-        }
-        
+        middleButton.setImage(UIImage(named: "playBtn.png"), for: .normal)
     }
-    func startTimer(){
-     
-        
+    func startTimer(timeleft: Int, fullCircle: Int){
+        self.timeLeft = timeleft
+        self.fullCircle = fullCircle
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
-        
     }
     
     @objc func onTimerFires(){
-        timeLeft -= 1
+        
         let minute = timeLeft/60
         let second = timeLeft%60
-        if minute >= 10{
-            lblTimerMinute.text = "\(minute):"
-        }else{
-            lblTimerMinute.text = "0\(minute):"
+        if (minute >= 10) && (second >= 10){
+            lblTimerMinute.text = "\(minute):\(second)"
+        }else if (minute >= 10) && (second < 10){
+            lblTimerMinute.text = "\(minute):0\(second)"
+        }else if (minute < 10) && (second >= 10){
+            lblTimerMinute.text = "0\(minute):\(second)"
+        }else if (minute < 10) && (second < 10){
+            lblTimerMinute.text = "0\(minute):0\(second)"
         }
-        if second >= 10 {
-            lblTimerSecond.text = "\(second)"
-        }else if second < 10 {
-            lblTimerSecond.text = "0\(second)"
-        }
+        
+        progress = Float(progressLine)/Float(self.fullCircle)
+        progressCircle.setProgressWithAnimation(duration: 1.0, value: progress)
 
         if timeLeft == 0 {
             timer?.invalidate()
         }
+        self.progressLine += 1
+        timeLeft -= 1
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? Session{
@@ -83,11 +92,36 @@ class BreakPageVC: UIViewController {
         }
     }
     
-    //untuk naro unwind segue di back button navigation bar
-    @IBAction func buttonBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    @IBAction func middlebutton(_ sender: Any) {
+        switch modeButton {
+        case "Start":
+            startTimer(timeleft: self.timeLeft, fullCircle: self.timeLeft)
+            self.modeButton = "Stop"
+            middleButton.setImage(UIImage(named: "StopBtn.png"), for: .normal)
+
+        case "Stop":
+            timer?.invalidate()
+                //ngasinh dia alert
+                let alert = UIAlertController(title: "", message: "Are you sure want to finish this break?", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Yes, back to focus", style: .default){
+                    (action) in
+                    self.navigationController?.popViewController(animated: true)
+                    self.timer?.invalidate()
+                }
+                let resume = UIAlertAction(title: "NO", style: .default){
+                    (action) in
+                    self.startTimer(timeleft: self.timeLeft, fullCircle: self.fullCircle)
+                }
+                alert.addAction(action)
+                alert.addAction(resume)
+                self.present(alert, animated: true, completion: nil)
+        default:
+            0
+        }
+        
         
     }
+    
     
 
     /*

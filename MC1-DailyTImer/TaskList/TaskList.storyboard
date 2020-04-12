@@ -51,10 +51,10 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3U-t2-Iyj">
-                                <rect key="frame" x="390" y="193" width="18" height="22"/>
+                                <rect key="frame" x="388" y="193" width="22" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="plus" catalog="system">
+                                <state key="normal" image="AddTaskBtn">
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -78,7 +78,7 @@
                                 <rect key="frame" x="210" y="147" width="24" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="pencil" catalog="system"/>
+                                <state key="normal" image="EditBtn"/>
                                 <connections>
                                     <action selector="editNameClicked:" destination="Hz7-vf-Yw9" eventType="touchUpInside" id="ZZJ-6t-2Hy"/>
                                 </connections>
@@ -100,6 +100,7 @@
                         <outlet property="editNameBtn" destination="bN3-xU-zQI" id="NXh-r9-f5q"/>
                         <outlet property="nameTxt" destination="DqJ-NF-GOc" id="agt-Vb-kUe"/>
                         <outlet property="taskTable" destination="dsw-UG-mIQ" id="bqN-em-EN7"/>
+                        <outlet property="toStartBtn" destination="1E8-T6-idC" id="lKg-aA-EEb"/>
                         <segue destination="jZf-n4-PHe" kind="show" identifier="toStartSession" id="TjN-OX-P04"/>
                         <segue destination="ocI-Qf-6OC" kind="presentation" identifier="toAddTask" id="x6j-Do-aOF"/>
                     </connections>
@@ -130,7 +131,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="pencil" catalog="system" width="64" height="56"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="AddTaskBtn" width="22" height="23"/>
+        <image name="EditBtn" width="23" height="26"/>
     </resources>
 </document>

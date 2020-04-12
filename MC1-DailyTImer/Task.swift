@@ -10,7 +10,7 @@ import Foundation
 struct Task {
          var taskName: String
          var taskDesc: String
-         var estimatedTime: Int
+         var estimatedSession: Int
          var timePerSession: Int
          var breakPerSession: Int
          var priority: String

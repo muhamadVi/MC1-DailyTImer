@@ -16,8 +16,9 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     @IBOutlet weak var timeSessionField: UITextField!
     @IBOutlet weak var breakField: UITextField!
     @IBOutlet weak var priorityField: UITextField!
+    var alert: UIAlertController!
     
-        
+    var dataPassed: [Task] = []
     var newPickerView = UIPickerView()
     var currentTextField = UITextField()
     
@@ -72,10 +73,10 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
              }
          }
     
-    var estimatedSessionArr = ["1","2","3"]
-    var timePerSessionArr = ["20","25","30"]
-    var breakTimePerSessionArr = ["5","10","15"]
-    var priorityArr = ["Low","Medium","High"]
+    var estimatedSessionArr = [" ","1","2","3"]
+    var timePerSessionArr = [" ","20","25","30"]
+    var breakTimePerSessionArr = [" ","5","10","15"]
+    var priorityArr = [" ","Low","Medium","High"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -160,7 +161,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
+        alert = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -175,13 +176,8 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
         if (taskName == "") || (taskDescription == "") || (estimatedSession == "") || (timePerSession == "") || (breakTimePerSession == "") || (priority == ""){
            showAlert()
         }else{
-            print(taskName)
-            print(taskDescription)
-            print(estimatedSession)
-            print(timePerSession)
-            print(breakTimePerSession)
-            print(priority)
-            dismiss(animated: true, completion: nil)
+            self.dataPassed.append(Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession)!, timePerSession: Int(timePerSession)!, breakPerSession: Int(breakTimePerSession)!, priority: priority, status: false))
+            performSegue(withIdentifier: "unwinfFromAddTask", sender: self)
         }
     }
     

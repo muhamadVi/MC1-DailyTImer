@@ -52,7 +52,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UkG-FX-pVI"/>
+                    <navigationItem key="navigationItem" id="bF1-vm-Wi2"/>
                     <connections>
                         <outlet property="saveUsername" destination="Tza-NE-9Gf" id="1m7-Dj-itb"/>
                         <outlet property="username" destination="Lno-Iu-y0U" id="vNQ-Pg-hF2"/>

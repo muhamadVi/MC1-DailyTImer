@@ -13,22 +13,28 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var editNameBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
+    @IBOutlet weak var toStartBtn: UIButton!
     
     let addTaskFile = AddTask()
     
     var userName = ""
     
     var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "high", status: true)
     ]
     
     var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high", status: true)
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "high", status: false)
     ]
+    
+    var dataReceived: [Task] = []
+    var selectedCell = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         
+        toStartBtn.isHidden = true
         
         checkStatus()
         taskTable.reloadData()
@@ -104,6 +110,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let task  = upcomingTasks[indexPath.row]
             performSegue(withIdentifier: "toStartSession", sender: task)
+            self.selectedCell = indexPath.row
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -134,9 +141,24 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func unwindToTaskList(_ unwindSegue: UIStoryboardSegue) {
-        let dariSession = unwindSegue.source
+        if let dariSession = unwindSegue.source as? Session{
         // Use data from the view controller which initiated the unwind segue
-        print("nerima data")
+            dataReceived.insert(dariSession.dataPassed[0], at:0)
+            upcomingTasks[self.selectedCell] = dataReceived[0]
+            checkStatus()
+            taskTable.reloadData()
+            dataReceived.removeAll()
+        }
+    }
+    
+    @IBAction func unwindToTaskListFromAddTask(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddTask {
+
+            dataReceived.insert(sourceViewController.dataPassed[0], at:0)
+            upcomingTasks.insert(dataReceived[0], at: 0)
+            dataReceived.removeAll()
+            taskTable.reloadData()
+        }
     }
 }
 
