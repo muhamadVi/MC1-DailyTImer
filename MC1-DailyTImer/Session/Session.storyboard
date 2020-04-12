@@ -24,9 +24,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oby-zJ-xN2">
-                                <rect key="frame" x="156" y="786" width="84" height="30"/>
+                                <rect key="frame" x="48" y="786" width="301" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="End Session"/>
+                                <state key="normal" title="Pencet tombol ini kalo task nya udah selesai"/>
                                 <connections>
                                     <action selector="ToEndSession:" destination="8Zq-XZ-Vqa" eventType="touchUpInside" id="lTe-pf-K8b"/>
                                     <segue destination="8KI-PC-qbH" kind="unwind" identifier="unwindToTaskList" unwindAction="unwindToTaskList:" id="abJ-mi-Pb4"/>

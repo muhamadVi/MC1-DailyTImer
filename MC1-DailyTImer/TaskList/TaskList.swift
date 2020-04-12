@@ -28,6 +28,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     ]
     
     var dataReceived: [Task] = []
+    var selectedCell = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +107,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             let task  = upcomingTasks[indexPath.row]
             performSegue(withIdentifier: "toStartSession", sender: task)
+            self.selectedCell = indexPath.row
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -136,9 +138,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func unwindToTaskList(_ unwindSegue: UIStoryboardSegue) {
-        let dariSession = unwindSegue.source
+        if let dariSession = unwindSegue.source as? Session{
         // Use data from the view controller which initiated the unwind segue
-        print("nerima data")
+            dataReceived.insert(dariSession.dataPassed[0], at:0)
+            upcomingTasks[self.selectedCell] = dataReceived[0]
+            checkStatus()
+            taskTable.reloadData()
+        }
     }
     
     @IBAction func unwindToTaskListFromAddTask(sender: UIStoryboardSegue) {
