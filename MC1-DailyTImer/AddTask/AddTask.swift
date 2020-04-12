@@ -16,6 +16,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     @IBOutlet weak var timeSessionField: UITextField!
     @IBOutlet weak var breakField: UITextField!
     @IBOutlet weak var priorityField: UITextField!
+    var alert: UIAlertController!
     
     var dataPassed: [Task] = []
     var newPickerView = UIPickerView()
@@ -160,7 +161,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     }
     
     func showAlert() {
-        let alert = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
+        alert = UIAlertController(title: "Error", message: "Please complete the form", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
@@ -172,18 +173,11 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if (taskName == "") || (taskDescription == "") || (estimatedSession == "") || (timePerSession == "") || (breakTimePerSession == "") || (priority == ""){
+        if (taskName == "") && (taskDescription == "") && (estimatedSession == "") && (timePerSession == "") && (breakTimePerSession == "") && (priority == ""){
            showAlert()
         }else{
-            /*
-            print(taskName)
-            print(taskDescription)
-            print(estimatedSession)
-            print(timePerSession)
-            print(breakTimePerSession)
-            print(priority)*/
-            dataPassed[0] = Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession) ?? 0, timePerSession: Int(timePerSession) ?? 0, breakPerSession: Int(breakTimePerSession) ?? 0, priority: priority, status: false)
-            dismiss(animated: true, completion: nil)
+            self.dataPassed.append(Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession)!, timePerSession: Int(timePerSession)!, breakPerSession: Int(breakTimePerSession)!, priority: priority, status: false))
+            performSegue(withIdentifier: "unwinfFromAddTask", sender: self)
         }
     }
     

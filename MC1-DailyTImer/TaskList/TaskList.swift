@@ -20,11 +20,11 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var upcomingTasks = [
         Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "high", status: true)
     ]
     
     var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "high", status: true)
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "high", status: false)
     ]
     
     var dataReceived: [Task] = []
@@ -144,13 +144,17 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
             upcomingTasks[self.selectedCell] = dataReceived[0]
             checkStatus()
             taskTable.reloadData()
+            dataReceived.removeAll()
         }
     }
     
     @IBAction func unwindToTaskListFromAddTask(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? AddTask {
-            dataReceived[0] = sourceViewController.dataPassed[0]
+
+            dataReceived.insert(sourceViewController.dataPassed[0], at:0)
             upcomingTasks.insert(dataReceived[0], at: 0)
+            dataReceived.removeAll()
+            taskTable.reloadData()
         }
     }
 }

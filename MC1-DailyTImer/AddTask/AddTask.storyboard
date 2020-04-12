@@ -118,7 +118,6 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="dbn-5R-0ki">
                             <connections>
                                 <action selector="doneButton:" destination="SWS-dq-QHF" id="FHa-ex-5pD"/>
-                                <segue destination="xQR-A6-Cng" kind="unwind" unwindAction="unwindToTaskListFromAddTaskWithSender:" id="4Q7-by-XyO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -130,6 +129,7 @@
                         <outlet property="estSessionField" destination="soH-s4-0Ks" id="xdw-m2-WVU"/>
                         <outlet property="priorityField" destination="BLY-cD-KHw" id="rmn-f2-Ko7"/>
                         <outlet property="timeSessionField" destination="F5Q-A4-ETo" id="2Tn-Uc-jWd"/>
+                        <segue destination="xQR-A6-Cng" kind="unwind" identifier="unwinfFromAddTask" unwindAction="unwindToTaskListFromAddTaskWithSender:" id="aAF-xI-Xp0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hz7-ZD-jIm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
