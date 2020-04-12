@@ -13,6 +13,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var editNameBtn: UIButton!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
+    @IBOutlet weak var toStartBtn: UIButton!
     
     let addTaskFile = AddTask()
     
@@ -32,6 +33,8 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         
+        toStartBtn.isHidden = true
         
         checkStatus()
         taskTable.reloadData()

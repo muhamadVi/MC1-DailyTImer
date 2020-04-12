@@ -46,6 +46,9 @@ class Boarding: UIViewController, UITextFieldDelegate {
 //        saveUsername.layer.borderWidth = 1
 //        view.addSubview(saveUsername)
         
+        //to hide navigation bar
+        self.navigationController?.navigationBar.isHidden = true
+        
         // fitur untuk meng up and down keypad
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

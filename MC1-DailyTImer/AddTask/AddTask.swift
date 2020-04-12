@@ -73,10 +73,10 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
              }
          }
     
-    var estimatedSessionArr = ["1","2","3"]
-    var timePerSessionArr = ["20","25","30"]
-    var breakTimePerSessionArr = ["5","10","15"]
-    var priorityArr = ["Low","Medium","High"]
+    var estimatedSessionArr = [" ","1","2","3"]
+    var timePerSessionArr = [" ","20","25","30"]
+    var breakTimePerSessionArr = [" ","5","10","15"]
+    var priorityArr = [" ","Low","Medium","High"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -173,7 +173,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     }
     
     @IBAction func doneButton(_ sender: Any) {
-        if (taskName == "") && (taskDescription == "") && (estimatedSession == "") && (timePerSession == "") && (breakTimePerSession == "") && (priority == ""){
+        if (taskName == "") || (taskDescription == "") || (estimatedSession == "") || (timePerSession == "") || (breakTimePerSession == "") || (priority == ""){
            showAlert()
         }else{
             self.dataPassed.append(Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession)!, timePerSession: Int(timePerSession)!, breakPerSession: Int(breakTimePerSession)!, priority: priority, status: false))
