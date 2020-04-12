@@ -14,6 +14,8 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var taskTable: UITableView!
     
+    let addTaskFile = AddTask()
+    
     var userName = ""
     
     var upcomingTasks = [
