@@ -19,7 +19,6 @@ class Session: UIViewController {
     
     // label timer
     @IBOutlet weak var lblTimerMinute: UILabel!
-    @IBOutlet weak var lblTimerSecond: UILabel!
         
     @IBOutlet weak var progressCircle: progressView!
     @IBOutlet weak var middleButton: UIButton!
@@ -98,15 +97,14 @@ class Session: UIViewController {
 
         let minute = timeLeft/60
         let second = timeLeft%60
-        if minute >= 10{
-            lblTimerMinute.text = "\(minute):"
-        }else{
-            lblTimerMinute.text = "0\(minute):"
-        }
-        if second >= 10 {
-            lblTimerSecond.text = "\(second)"
-        }else if second < 10 {
-            lblTimerSecond.text = "0\(second)"
+        if (minute >= 10) && (second >= 10){
+            lblTimerMinute.text = "\(minute):\(second)"
+        }else if (minute >= 10) && (second < 10){
+            lblTimerMinute.text = "\(minute):0\(second)"
+        }else if (minute < 10) && (second >= 10){
+            lblTimerMinute.text = "0\(minute):\(second)"
+        }else if (minute < 10) && (second < 10){
+            lblTimerMinute.text = "0\(minute):0\(second)"
         }
          lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
 
@@ -129,15 +127,14 @@ class Session: UIViewController {
         
         let minute = timeLeft/60
         let second = timeLeft%60
-        if minute >= 10{
-            lblTimerMinute.text = "\(minute):"
-        }else{
-            lblTimerMinute.text = "0\(minute):"
-        }
-        if second >= 10 {
-            lblTimerSecond.text = "\(second)"
-        }else if second < 10 {
-            lblTimerSecond.text = "0\(second)"
+        if (minute >= 10) && (second >= 10){
+            lblTimerMinute.text = "\(minute):\(second)"
+        }else if (minute >= 10) && (second < 10){
+            lblTimerMinute.text = "\(minute):0\(second)"
+        }else if (minute < 10) && (second >= 10){
+            lblTimerMinute.text = "0\(minute):\(second)"
+        }else if (minute < 10) && (second < 10){
+            lblTimerMinute.text = "0\(minute):0\(second)"
         }
         
         progress = Float(progressLine)/Float(self.fullCircle)
@@ -181,7 +178,7 @@ class Session: UIViewController {
             }else if currentSession == totalSession{
                 let sisaWaktu = self.timeInput % waktu
                 startTimer(timeleft: sisaWaktu, fullCircle: sisaWaktu)
-                
+
             }
             self.currentSession += 1
             self.modeButton = "pause"
@@ -196,13 +193,18 @@ class Session: UIViewController {
                 (action) in self.navigationController?.popViewController(animated: true)
                 self.timer?.invalidate()
             }
-            let gajadi = UIAlertAction(title: "Resume", style: .default){
+            let resume = UIAlertAction(title: "Resume", style: .default){
                 (action) in
-                let sisaWaktu = self.timeInput % self.waktu
-                self.startTimer(timeleft: self.timeLeft, fullCircle: sisaWaktu)
+                if self.currentSession < self.totalSession{
+                    self.startTimer(timeleft: self.timeLeft, fullCircle: self.waktu)
+                    
+                }else if self.currentSession == self.totalSession{
+                    let sisaWaktu = self.timeInput % self.waktu
+                    self.startTimer(timeleft: self.timeLeft, fullCircle: sisaWaktu)
+                }
             }
             alert.addAction(action)
-            alert.addAction(gajadi)
+            alert.addAction(resume)
             self.present(alert, animated: true, completion: nil)
         default:
             0
