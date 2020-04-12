@@ -10,14 +10,10 @@ import UIKit
 
 class Session: UIViewController {
     //label kiri
-    //@IBOutlet weak var lblTaskName: UILabel!
-    @IBOutlet weak var lblEstimatedTime: UILabel!
     @IBOutlet weak var lblCurrentSession: UILabel!
-    //@IBOutlet weak var lblTaskDesc: UILabel!
     
     //label kanan
     @IBOutlet weak var lblInTaskName: UILabel!
-    @IBOutlet weak var lblInEstimatedTime: UILabel!
     @IBOutlet weak var lblInCurrentSession: UILabel!
     @IBOutlet weak var lblInTaskDesc: UILabel!
     
@@ -61,8 +57,8 @@ class Session: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        progressCircle.trackColor = UIColor.red
-        progressCircle.progressColor = UIColor.blue
+        progressCircle.trackColor = UIColor.white.withAlphaComponent(0.5)
+        progressCircle.progressColor = UIColor(red: 22.0/255.0, green: 40.0/255.0, blue: 80.0/255.0, alpha: 1.0)
         progressCircle.setProgressWithAnimation(duration: 1.0, value: 0.0)
 
         self.progressLine = 0
@@ -95,9 +91,9 @@ class Session: UIViewController {
     }
     func setUpPage(){
         lblCurrentSession.text = "Current Session"
-        lblEstimatedTime.text = "Estimated Time"
+        
         lblInTaskName.text = taskName
-        lblInEstimatedTime.text = "\(timeInput)"
+        
         lblInTaskDesc.text = taskDesc!
 
         let minute = timeLeft/60
@@ -113,7 +109,8 @@ class Session: UIViewController {
             lblTimerSecond.text = "0\(second)"
         }
          lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
-        middleButton.setTitle("Start", for: .normal)
+
+        //middleButton.setTitle(nil, for: .normal)
         self.modeButton = "start"
         
     }
@@ -143,12 +140,8 @@ class Session: UIViewController {
             lblTimerSecond.text = "0\(second)"
         }
         
-        
-        
         progress = Float(progressLine)/Float(self.fullCircle)
         progressCircle.setProgressWithAnimation(duration: 1.0, value: progress)
-        print("\(progressLine): \(progress)")
-
 
         if timeLeft == 0 {
             timer?.invalidate()
@@ -192,7 +185,8 @@ class Session: UIViewController {
             }
             self.currentSession += 1
             self.modeButton = "pause"
-            middleButton.setTitle("Pause", for: .normal)
+            middleButton.setTitle(nil, for: .normal)
+            middleButton.setImage(UIImage(named: "StopBtn.png"), for: .normal)
             
         case "pause":
             timer?.invalidate()
