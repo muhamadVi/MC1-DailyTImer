@@ -62,17 +62,22 @@ class Session: UIViewController {
 
         self.progressLine = 0
         if currentSession > totalSession{
-            alert = UIAlertController(title: "", message: "Are you done", preferredStyle: .alert)
-            let action = UIAlertAction(title: "yes", style: .default){
+            alert = UIAlertController(title: "", message: "Have you finished your task?", preferredStyle: .alert)
+            let no = UIAlertAction(title: "No", style: .default) { (action) in
+                self.startTimer(timeleft: self.timeInput, fullCircle: self.timeInput)
+            }
+            let action = UIAlertAction(title: "Yes", style: .default){
                 (action) in
                 self.navigationController?.popViewController(animated: true)
             }
-            
+            alert.addAction(no)
             alert.addAction(action)
             self.present(alert, animated: true, completion: nil)
         
+        }else{
+            self.timeLeft = task!.timePerSession
+            setUpPage()
         }
-        setUpPage()
     }
     
     
@@ -81,9 +86,9 @@ class Session: UIViewController {
         self.task = task
         self.taskName = task.taskName
         self.taskDesc = task.taskDesc
-        self.timeInput = task.timePerSession*60
-        self.breakInput = task.breakPerSession*60
-        self.timeLeft = task.timePerSession*60
+        self.timeInput = task.timePerSession
+        self.breakInput = task.breakPerSession
+        self.timeLeft = task.timePerSession
         self.totalSession = task.estimatedSession
     }
     func setUpPage(){
@@ -107,18 +112,15 @@ class Session: UIViewController {
          lblInCurrentSession.text = "\(currentSession)/\(totalSession)"
 
         //middleButton.setTitle(nil, for: .normal)
+        middleButton.setImage(UIImage(named: "playBtn.png"), for: .normal)
         self.modeButton = "start"
         
     }
     
     func startTimer(timeleft: Int, fullCircle: Int){
-        
         self.timeLeft = timeleft
         self.fullCircle = fullCircle
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.onTimerFires), userInfo: nil, repeats: true)
-        
-        
-        
     }
     
     @objc func onTimerFires(){
@@ -181,14 +183,14 @@ class Session: UIViewController {
             //ngasinh dia alert
             alert = UIAlertController(title: "", message: "You still need to focus.", preferredStyle: .alert)
             let action = UIAlertAction(title: "Stop", style: .default){
-                (action) in self.navigationController?.popViewController(animated: true)
+                (action) in
+                self.navigationController?.popViewController(animated: true)
+                
                 self.timer?.invalidate()
             }
             let resume = UIAlertAction(title: "Resume", style: .default){
                 (action) in
                 self.startTimer(timeleft: self.timeLeft, fullCircle: self.timeInput)
-                    
-                
             }
             alert.addAction(action)
             alert.addAction(resume)
@@ -200,7 +202,19 @@ class Session: UIViewController {
     }
     @IBAction func ToEndSession(_ sender: Any) {
         timer?.invalidate()
-        dataPassed.append( Task( taskName: task!.taskName, taskDesc: task!.taskDesc, estimatedSession: Int(task!.estimatedSession), timePerSession: Int(task!.timePerSession), breakPerSession: Int(task!.breakPerSession), priority: task!.priority, status: false))
+        alert = UIAlertController(title: "", message: "Are you sure have finish this task?", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "No", style: .cancel){
+            (action) in
+             self.startTimer(timeleft: self.timeLeft, fullCircle: self.timeInput)
+        }
+        let yes = UIAlertAction(title: "", style: .default) { (action) in
+            self.dataPassed.append( Task( taskName: self.task!.taskName, taskDesc: self.task!.taskDesc, estimatedSession: Int(self.task!.estimatedSession), timePerSession: Int(self.task!.timePerSession), breakPerSession: Int(self.task!.breakPerSession), priority: self.task!.priority, status: false))
+        }
+        
+        alert.addAction(action)
+        alert.addAction(yes)
+        self.present(alert, animated: true, completion: nil)
 //
     }
     
