@@ -17,7 +17,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     @IBOutlet weak var breakField: UITextField!
     @IBOutlet weak var priorityField: UITextField!
     
-        
+    var dataPassed: [Task] = []
     var newPickerView = UIPickerView()
     var currentTextField = UITextField()
     
@@ -175,12 +175,14 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
         if (taskName == "") || (taskDescription == "") || (estimatedSession == "") || (timePerSession == "") || (breakTimePerSession == "") || (priority == ""){
            showAlert()
         }else{
+            /*
             print(taskName)
             print(taskDescription)
             print(estimatedSession)
             print(timePerSession)
             print(breakTimePerSession)
-            print(priority)
+            print(priority)*/
+            dataPassed[0] = Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession) ?? 0, timePerSession: Int(timePerSession) ?? 0, breakPerSession: Int(breakTimePerSession) ?? 0, priority: priority, status: false)
             dismiss(animated: true, completion: nil)
         }
     }

@@ -19,13 +19,15 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var userName = ""
     
     var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedTime: 25, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedTime: 60, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "high", status: false)
     ]
     
     var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedTime: 70, timePerSession: 15, breakPerSession: 10, priority: "high", status: true)
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "high", status: true)
     ]
+    
+    var dataReceived: [Task] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +139,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let dariSession = unwindSegue.source
         // Use data from the view controller which initiated the unwind segue
         print("nerima data")
+    }
+    
+    @IBAction func unwindToTaskListFromAddTask(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddTask {
+            dataReceived[0] = sourceViewController.dataPassed[0]
+            upcomingTasks.insert(dataReceived[0], at: 0)
+        }
     }
 }
 
