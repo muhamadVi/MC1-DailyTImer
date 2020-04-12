@@ -109,7 +109,6 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         let task  = upcomingTasks[0]
         self.performSegue(withIdentifier: "toStartSession", sender: task)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
