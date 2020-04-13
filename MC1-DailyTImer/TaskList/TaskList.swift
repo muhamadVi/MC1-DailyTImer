@@ -19,16 +19,16 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userName = ""
     
-    let donker = UIColor(hex: "#142850")
-    let krem = UIColor(hex: "#EBCFB2")
+  //  let donker = UIColor(hex: "#142850")
+  //  let krem = UIColor(hex: "#EBCFB2")
     
     var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "medium", status: true)
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "High", status: true),
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "Medium", status: true)
     ]
     
     var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "low", status: false)
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "Low", status: false)
     ]
     
     var dataReceived: [Task] = []
@@ -37,6 +37,8 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
          
+       
+        
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackgroundTaskList.png")
         backgroundImage.contentMode =  UIView.ContentMode.scaleAspectFill
@@ -82,12 +84,23 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
-        if (section == 0) {
-            headerView.backgroundColor = UIColor.init(patternImage: #imageLiteral(resourceName: "SectionUpcomingTasks.png"))
-        } else {
-            headerView.backgroundColor = UIColor.init(patternImage: #imageLiteral(resourceName: "SectionTaskCompleted.png"))
+        headerView.backgroundColor = UIColor.init(displayP3Red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1.0)
+        
+        let headerLabel = UILabel(frame: CGRect(x: 10, y: 0, width:tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.textColor = UIColor.init(displayP3Red: 235/255.0, green: 207/255.0, blue: 178/255.0, alpha: 1.0)
+        if section == 0 {
+            headerLabel.text = "Your Upcoming Task"
+        }else{
+            headerLabel.text = "Your Completed Task"
         }
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+        
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+           return 30
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -122,11 +135,11 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         cell.taskNameLb?.text = task.taskName
         cell.taskDescLb?.text = task.taskDesc
         
-        if task.priority == "high" {
+        if task.priority == "High" {
             cell.priorityImage.image = #imageLiteral(resourceName: "HighIcon")
-        }else if task.priority == "medium"{
+        }else if task.priority == "Medium"{
             cell.priorityImage.image = #imageLiteral(resourceName: "MediumIcon")
-        }else if task.priority == "low"{
+        }else if task.priority == "Low"{
             cell.priorityImage.image = #imageLiteral(resourceName: "LowIcon")
         }
         
@@ -195,32 +208,4 @@ class taskTableViewCell: UITableViewCell {
     @IBOutlet weak var taskDescLb: UILabel!
     @IBOutlet weak var priorityImage: UIImageView!
     
-}
-
-extension UIColor {
-    public convenience init?(hex: String) {
-        let r, g, b, a: CGFloat
-
-        if hex.hasPrefix("#") {
-            let start = hex.index(hex.startIndex, offsetBy: 1)
-            let hexColor = String(hex[start...])
-
-            if hexColor.count == 8 {
-                let scanner = Scanner(string: hexColor)
-                var hexNumber: UInt64 = 0
-
-                if scanner.scanHexInt64(&hexNumber) {
-                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
-                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
-                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-                    a = CGFloat(hexNumber & 0x000000ff) / 255
-
-                    self.init(red: r, green: g, blue: b, alpha: a)
-                    return
-                }
-            }
-        }
-
-        return nil
-    }
 }
