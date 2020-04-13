@@ -16,6 +16,20 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     @IBOutlet weak var timeSessionField: UITextField!
     @IBOutlet weak var breakField: UITextField!
     @IBOutlet weak var priorityField: UITextField!
+    
+    
+    @IBOutlet weak var frameTaskName: UIView!
+    @IBOutlet weak var frameTaskDesc: UIView!
+    @IBOutlet weak var frameEstimated: UIView!
+    @IBOutlet weak var frameTimePerSession: UIView!
+    @IBOutlet weak var frameBreakTime: UIView!
+    @IBOutlet weak var framePriority: UIView!
+    
+    
+    
+    
+    
+    
     var alert: UIAlertController!
     
     var dataPassed: [Task] = []
@@ -169,7 +183,12 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        frameTaskName.layer.cornerRadius = 7
+        frameTaskDesc.layer.cornerRadius = 7
+        frameEstimated.layer.cornerRadius = 7
+        frameTimePerSession.layer.cornerRadius = 7
+        frameBreakTime.layer.cornerRadius = 7
+        framePriority.layer.cornerRadius = 7
     }
     
     @IBAction func doneButton(_ sender: Any) {
