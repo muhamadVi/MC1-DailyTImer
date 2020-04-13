@@ -86,7 +86,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
         headerView.backgroundColor = UIColor.init(displayP3Red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1.0)
         
-        let headerLabel = UILabel(frame: CGRect(x: 10, y: 0, width:tableView.bounds.size.width, height: tableView.bounds.size.height))
+        let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width:tableView.bounds.size.width, height: tableView.bounds.size.height))
         headerLabel.textColor = UIColor.init(displayP3Red: 235/255.0, green: 207/255.0, blue: 178/255.0, alpha: 1.0)
         if section == 0 {
             headerLabel.text = "Your Upcoming Task"
@@ -100,7 +100,7 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-           return 30
+           return 44
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
