@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Zq-XZ-Vqa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Zq-XZ-Vqa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,7 +87,6 @@
                                 <state key="normal" image="DoneButton"/>
                                 <connections>
                                     <action selector="ToEndSession:" destination="8Zq-XZ-Vqa" eventType="touchUpInside" id="lTe-pf-K8b"/>
-                                    <segue destination="8KI-PC-qbH" kind="unwind" identifier="unwindToTaskList" unwindAction="unwindToTaskList:" id="abJ-mi-Pb4"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -104,6 +103,7 @@
                         <outlet property="middleButton" destination="dlA-yy-wl0" id="UQV-OI-dk4"/>
                         <outlet property="progressCircle" destination="ASW-wg-K6T" id="a6Z-Go-C8V"/>
                         <segue destination="hGp-W4-dGA" kind="show" identifier="toEndSession" id="Y1a-wC-uUS"/>
+                        <segue destination="8KI-PC-qbH" kind="unwind" identifier="undwindFromSession" unwindAction="unwindToTaskList:" id="ovd-7E-bAI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAw-0o-iDD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
