@@ -22,9 +22,9 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
   //  let donker = UIColor(hex: "#142850")
   //  let krem = UIColor(hex: "#EBCFB2")
     
-    var upcomingTasks = []
+    var upcomingTasks: [Task] = []
     
-    var completedTasks = []
+    var completedTasks:  [Task] = []
     
     var dataReceived: [Task] = []
     var selectedCell = 0
