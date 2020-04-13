@@ -208,8 +208,10 @@ class Session: UIViewController {
             (action) in
              self.startTimer(timeleft: self.timeLeft, fullCircle: self.timeInput)
         }
-        let yes = UIAlertAction(title: "", style: .default) { (action) in
+        let yes = UIAlertAction(title: "Yes", style: .default) { (action) in
             self.dataPassed.append( Task( taskName: self.task!.taskName, taskDesc: self.task!.taskDesc, estimatedSession: Int(self.task!.estimatedSession), timePerSession: Int(self.task!.timePerSession), breakPerSession: Int(self.task!.breakPerSession), priority: self.task!.priority, status: false))
+            self.performSegue(withIdentifier: "undwindFromSession", sender: self)
+            
         }
         
         alert.addAction(action)

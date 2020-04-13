@@ -19,13 +19,16 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var userName = ""
     
+  //  let donker = UIColor(hex: "#142850")
+  //  let krem = UIColor(hex: "#EBCFB2")
+    
     var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "high", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "high", status: true)
+        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "High", status: true),
+        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "Medium", status: true)
     ]
     
     var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "high", status: false)
+        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "Low", status: false)
     ]
     
     var dataReceived: [Task] = []
@@ -34,6 +37,13 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
          
+       
+        
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "BackgroundTaskList.png")
+        backgroundImage.contentMode =  UIView.ContentMode.scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+            
         toStartBtn.isHidden = true
         
         checkStatus()
@@ -71,6 +81,28 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return 2
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 30))
+        headerView.backgroundColor = UIColor.init(displayP3Red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1.0)
+        
+        let headerLabel = UILabel(frame: CGRect(x: 20, y: 10, width:tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.textColor = UIColor.init(displayP3Red: 235/255.0, green: 207/255.0, blue: 178/255.0, alpha: 1.0)
+        if section == 0 {
+            headerLabel.text = "Your Upcoming Task"
+        }else{
+            headerLabel.text = "Your Completed Task"
+        }
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+           return 44
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionName: String
         switch section {
@@ -102,6 +134,14 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         cell.taskNameLb?.text = task.taskName
         cell.taskDescLb?.text = task.taskDesc
+        
+        if task.priority == "High" {
+            cell.priorityImage.image = #imageLiteral(resourceName: "HighIcon")
+        }else if task.priority == "Medium"{
+            cell.priorityImage.image = #imageLiteral(resourceName: "MediumIcon")
+        }else if task.priority == "Low"{
+            cell.priorityImage.image = #imageLiteral(resourceName: "LowIcon")
+        }
         
         return cell
     }

@@ -183,6 +183,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newPickerView.reloadAllComponents()
         frameTaskName.layer.cornerRadius = 7
         frameTaskDesc.layer.cornerRadius = 7
         frameEstimated.layer.cornerRadius = 7
@@ -198,6 +199,7 @@ class AddTask: UIViewController, UIPickerViewDataSource,UIPickerViewDelegate, UI
             self.dataPassed.append(Task( taskName: taskName, taskDesc: taskDescription, estimatedSession: Int(estimatedSession)!, timePerSession: Int(timePerSession)!, breakPerSession: Int(breakTimePerSession)!, priority: priority, status: false))
             performSegue(withIdentifier: "unwinfFromAddTask", sender: self)
         }
+        newPickerView.reloadAllComponents()
     }
     
     @IBAction func cancelButton(_ sender: Any) {
