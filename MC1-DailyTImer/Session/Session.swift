@@ -21,6 +21,7 @@ class Session: UIViewController {
     @IBOutlet weak var lblTimerMinute: UILabel!
         
     @IBOutlet weak var progressCircle: progressView!
+    @IBOutlet weak var doneBtn: UIButton!
     @IBOutlet weak var middleButton: UIButton!
     var timer: Timer?
     var timeLeft = 0
@@ -45,8 +46,6 @@ class Session: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
 
         // Do any additional setup after loading the view.
         
@@ -56,6 +55,7 @@ class Session: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        
         progressCircle.trackColor = UIColor.white.withAlphaComponent(0.5)
         progressCircle.progressColor = UIColor(red: 22.0/255.0, green: 40.0/255.0, blue: 80.0/255.0, alpha: 1.0)
         progressCircle.setProgressWithAnimation(duration: 1.0, value: 0.0)
@@ -69,6 +69,8 @@ class Session: UIViewController {
             let action = UIAlertAction(title: "Yes", style: .default){
                 (action) in
                 self.navigationController?.popViewController(animated: true)
+                self.dataPassed.append( Task( taskName: self.task!.taskName, taskDesc: self.task!.taskDesc, estimatedSession: Int(self.task!.estimatedSession), timePerSession: Int(self.task!.timePerSession), breakPerSession: Int(self.task!.breakPerSession), priority: self.task!.priority, status: false))
+                self.performSegue(withIdentifier: "undwindFromSession", sender: self)
             }
             alert.addAction(no)
             alert.addAction(action)
@@ -113,6 +115,7 @@ class Session: UIViewController {
 
         //middleButton.setTitle(nil, for: .normal)
         middleButton.setImage(UIImage(named: "playBtn.png"), for: .normal)
+        doneBtn.isHidden = true
         self.modeButton = "start"
         
     }
@@ -177,10 +180,10 @@ class Session: UIViewController {
             self.modeButton = "pause"
             middleButton.setTitle(nil, for: .normal)
             middleButton.setImage(UIImage(named: "StopBtn.png"), for: .normal)
+                doneBtn.isHidden = false
             
         case "pause":
             timer?.invalidate()
-            //ngasinh dia alert
             alert = UIAlertController(title: "", message: "You still need to focus.", preferredStyle: .alert)
             let action = UIAlertAction(title: "Stop", style: .default){
                 (action) in
@@ -211,13 +214,29 @@ class Session: UIViewController {
         let yes = UIAlertAction(title: "Yes", style: .default) { (action) in
             self.dataPassed.append( Task( taskName: self.task!.taskName, taskDesc: self.task!.taskDesc, estimatedSession: Int(self.task!.estimatedSession), timePerSession: Int(self.task!.timePerSession), breakPerSession: Int(self.task!.breakPerSession), priority: self.task!.priority, status: false))
             self.performSegue(withIdentifier: "undwindFromSession", sender: self)
-            
         }
         
         alert.addAction(action)
         alert.addAction(yes)
         self.present(alert, animated: true, completion: nil)
 //
+    }
+    @IBAction func back(_ sender:UIButton) {
+        timer?.invalidate()
+        alert = UIAlertController(title: "", message: "You still need to focus.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Quit", style: .default){
+            (action) in
+            self.navigationController?.popViewController(animated: true)
+            
+            self.timer?.invalidate()
+        }
+        let resume = UIAlertAction(title: "Resume", style: .default){
+            (action) in
+        }
+        alert.addAction(action)
+        alert.addAction(resume)
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     

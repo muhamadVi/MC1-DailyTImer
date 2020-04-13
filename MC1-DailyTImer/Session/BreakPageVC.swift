@@ -82,6 +82,7 @@ class BreakPageVC: UIViewController {
 
         if timeLeft == 0 {
             timer?.invalidate()
+            showAlert()
         }
         self.progressLine += 1
         timeLeft -= 1
@@ -90,6 +91,22 @@ class BreakPageVC: UIViewController {
         if let destination = segue.destination as? Session{
             destination.currentSession = self.currentSession+1
         }
+    }
+    
+    func showAlert(){
+        let alert = UIAlertController(title: "", message: "Do you want to start focus?", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Yes, back to focus", style: .default){
+            (action) in
+            self.navigationController?.popViewController(animated: true)
+            self.timer?.invalidate()
+        }
+        let resume = UIAlertAction(title: "NO", style: .default){
+            (action) in
+            self.startTimer(timeleft: self.timeLeft, fullCircle: self.fullCircle)
+        }
+        alert.addAction(action)
+        alert.addAction(resume)
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func middlebutton(_ sender: Any) {
@@ -102,19 +119,7 @@ class BreakPageVC: UIViewController {
         case "Stop":
             timer?.invalidate()
                 //ngasinh dia alert
-                let alert = UIAlertController(title: "", message: "Are you sure want to finish this break?", preferredStyle: .alert)
-                let action = UIAlertAction(title: "Yes, back to focus", style: .default){
-                    (action) in
-                    self.navigationController?.popViewController(animated: true)
-                    self.timer?.invalidate()
-                }
-                let resume = UIAlertAction(title: "NO", style: .default){
-                    (action) in
-                    self.startTimer(timeleft: self.timeLeft, fullCircle: self.fullCircle)
-                }
-                alert.addAction(action)
-                alert.addAction(resume)
-                self.present(alert, animated: true, completion: nil)
+                showAlert()
         default:
             0
         }
