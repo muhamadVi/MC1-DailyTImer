@@ -22,22 +22,15 @@ class TaskList: UIViewController, UITableViewDataSource, UITableViewDelegate {
   //  let donker = UIColor(hex: "#142850")
   //  let krem = UIColor(hex: "#EBCFB2")
     
-    var upcomingTasks = [
-        Task(taskName: "Coding", taskDesc: "MC-1", estimatedSession: 2, timePerSession: 10, breakPerSession: 5, priority: "High", status: true),
-        Task(taskName: "Cuci", taskDesc: "Piring", estimatedSession: 3, timePerSession: 25, breakPerSession: 10, priority: "Medium", status: true)
-    ]
+    var upcomingTasks = []
     
-    var completedTasks = [
-        Task(taskName: "Belajar", taskDesc: "Inggris", estimatedSession: 4, timePerSession: 15, breakPerSession: 10, priority: "Low", status: false)
-    ]
+    var completedTasks = []
     
     var dataReceived: [Task] = []
     var selectedCell = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         
-       
         
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
         backgroundImage.image = UIImage(named: "BackgroundTaskList.png")
