@@ -9,5 +9,5 @@ Now you can work with the time, instead of struggling against it.
 
 ## Screenshots
 
-![All Pages](https://ibb.co/sqVwRCZ)
+![All Pages](https://i.ibb.co/sqVwRCZ/MC1-presentation-keynote-template-2-001.png)
 
